@@ -17,14 +17,14 @@ const services = [
     desc: "Traslados de larga distancia con seguimiento. Origen y destino en cualquier provincia.",
     img: camionProvincia,
     alt: "Camión de mudanzas listo para traslado entre provincias",
-    pos: "center 52%",
+    pos: "center 65%",
   },
   {
     title: "Guardamuebles",
     desc: "Depósito seguro y vigilado. Tus cosas resguardadas todo el tiempo que necesites.",
     img: guardamueblesAzul,
     alt: "Depósito de guardamuebles con boxes individuales",
-    pos: "center 44%",
+    pos: "center 70%",
   },
 ];
 ---
@@ -135,8 +135,9 @@ const services = [
   }
 
   .service-card--secondary .service-card__img {
-    aspect-ratio: auto;
-    min-height: clamp(210px, 22vw, 280px);
+    aspect-ratio: 4 / 3;
+    min-height: 0;
+    background: var(--gris-200);
   }
 
   .service-card__img--full {
@@ -159,7 +160,14 @@ const services = [
     height: 100%;
     object-fit: cover;
     object-position: var(--img-pos, center center);
-    transition: transform 0.35s ease;
+    transition: none;
+  }
+
+  .service-card--secondary .service-card__img :global(img) {
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--img-pos, center 84%);
+    transform: none;
   }
 
   .service-card__img--full :global(img) {
@@ -169,7 +177,11 @@ const services = [
   }
 
   .service-card:hover .service-card__img :global(img) {
-    transform: scale(1.04);
+    transform: none;
+  }
+
+  .service-card--secondary:hover .service-card__img :global(img) {
+    transform: none;
   }
 
   .service-card--featured:hover .service-card__img--full :global(img) {
