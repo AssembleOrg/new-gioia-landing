@@ -1,0 +1,141 @@
+---
+const zonas = [
+  "Lanús",
+  "Avellaneda",
+  "Lomas de Zamora",
+  "Quilmes",
+  "Banfield",
+  "CABA",
+  "Zona Sur",
+  "Zona Oeste",
+  "Zona Norte",
+  "La Plata",
+  "Mar del Plata",
+  "Todas las provincias",
+];
+---
+
+<section id="cobertura" class="coverage section">
+  <div class="container coverage__inner">
+    <div class="coverage__content">
+      <span class="eyebrow">Cobertura</span>
+      <h2>Operamos en todo el AMBA y todas las provincias.</h2>
+      <p class="coverage__lead">
+        Base en Lanús, salidas diarias por Buenos Aires y traslados de larga distancia coordinados
+        para todo el país. Si tu destino no aparece en la lista, consultanos: probablemente vamos.
+      </p>
+
+      <ul class="coverage__zones">
+        {zonas.map((z) => <li>{z}</li>)}
+      </ul>
+    </div>
+
+    <aside class="coverage__card">
+      <h3>Base operativa</h3>
+      <p class="coverage__addr">
+        Mendoza 2765<br />
+        Lanús, Buenos Aires
+      </p>
+
+      <iframe
+        src="https://www.google.com/maps?q=Mendoza+2765,+Lan%C3%BAs,+Buenos+Aires&output=embed"
+        title="Ubicación Transporte Gioia e Hijos"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+
+      <a
+        class="coverage__link"
+        href="https://www.google.com/maps?q=Mendoza+2765,+Lan%C3%BAs,+Buenos+Aires"
+        target="_blank"
+        rel="noopener"
+      >
+        Ver en Google Maps →
+      </a>
+    </aside>
+  </div>
+</section>
+
+<style>
+  .coverage {
+    background: var(--white);
+  }
+
+  .coverage__inner {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: clamp(28px, 5vw, 64px);
+    align-items: start;
+  }
+
+  .coverage__content h2 {
+    color: var(--ink);
+  }
+
+  .coverage__lead {
+    color: var(--gris-700);
+    font-size: 1.05rem;
+    margin-bottom: 28px;
+  }
+
+  .coverage__zones {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .coverage__zones li {
+    background: var(--gris-100);
+    color: var(--ink);
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    border: 1px solid var(--gris-200);
+  }
+
+  .coverage__card {
+    background: var(--gris-100);
+    border-radius: var(--radius-md);
+    padding: 28px;
+    border: 1px solid var(--gris-200);
+  }
+
+  .coverage__card h3 {
+    color: var(--bordo);
+    margin-bottom: 8px;
+  }
+
+  .coverage__addr {
+    color: var(--ink);
+    font-weight: 500;
+    margin-bottom: 18px;
+  }
+
+  .coverage__card iframe {
+    width: 100%;
+    height: 240px;
+    border: 0;
+    border-radius: var(--radius-sm);
+    margin-bottom: 14px;
+  }
+
+  .coverage__link {
+    color: var(--bordo);
+    font-weight: 600;
+    font-size: 0.92rem;
+  }
+
+  .coverage__link:hover {
+    color: var(--bordo-dark);
+  }
+
+  @media (max-width: 880px) {
+    .coverage__inner {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

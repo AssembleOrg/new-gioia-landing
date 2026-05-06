@@ -1,0 +1,114 @@
+---
+const steps = [
+  {
+    n: "01",
+    title: "Contactanos",
+    desc: "Escribinos por WhatsApp, llamanos o envianos un mail. Respondemos rápido.",
+  },
+  {
+    n: "02",
+    title: "Visita y cotización",
+    desc: "Coordinamos una visita o videollamada para ver el volumen y darte un presupuesto cerrado.",
+  },
+  {
+    n: "03",
+    title: "Embalaje y traslado",
+    desc: "Llegamos con materiales, embalamos lo delicado y cargamos con cuidado.",
+  },
+  {
+    n: "04",
+    title: "Entrega y armado",
+    desc: "Descargamos donde vos digas y, si lo necesitás, dejamos los muebles armados en su lugar.",
+  },
+];
+---
+
+<section id="proceso" class="process section">
+  <div class="container">
+    <header class="process__head">
+      <span class="eyebrow">Cómo trabajamos</span>
+      <h2>Cuatro pasos. Cero sorpresas.</h2>
+    </header>
+
+    <ol class="process__list">
+      {
+        steps.map((s) => (
+          <li class="step">
+            <span class="step__num">{s.n}</span>
+            <h3>{s.title}</h3>
+            <p>{s.desc}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .process {
+    background: var(--ink);
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .process::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(700px 400px at 90% 0%, rgba(155, 42, 58, 0.25) 0%, rgba(0, 0, 0, 0) 60%);
+    pointer-events: none;
+  }
+
+  .process__head {
+    max-width: 600px;
+    margin-bottom: 48px;
+    position: relative;
+  }
+
+  .process__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 28px;
+    position: relative;
+  }
+
+  .step {
+    padding: 28px 24px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-md);
+    backdrop-filter: blur(4px);
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .step:hover {
+    border-color: var(--bordo-light);
+    transform: translateY(-3px);
+  }
+
+  .step__num {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    color: var(--bordo-light);
+    letter-spacing: 0.04em;
+    line-height: 1;
+    margin-bottom: 14px;
+  }
+
+  .step h3 {
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+
+  .step p {
+    color: var(--gris-300);
+    font-size: 0.95rem;
+    margin: 0;
+  }
+</style>

@@ -1,0 +1,221 @@
+---
+import { site, whatsappLink } from "../data/site";
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <img class="footer__mark" src={site.logoPath} alt={`Logo ${site.shortName}`} loading="lazy" decoding="async" />
+      <strong>Transporte Gioia e Hijos SRL</strong>
+      <p class="footer__tagline">
+        Mudanzas y guardamuebles desde Lanús para todo el país.
+      </p>
+    </div>
+
+    <div class="footer__col">
+      <h4>Servicios</h4>
+      <ul>
+        <li><a href="#servicios">Mudanzas residenciales</a></li>
+        <li><a href="#servicios">Mudanzas comerciales</a></li>
+        <li><a href="#servicios">Mudanzas entre provincias</a></li>
+        <li><a href="#guardamuebles">Guardamuebles</a></li>
+      </ul>
+    </div>
+
+    <div class="footer__col">
+      <h4>Contacto</h4>
+      <ul>
+        <li>
+          <a href={whatsappLink()} target="_blank" rel="noopener">
+            WhatsApp · {site.phoneDisplay}
+          </a>
+        </li>
+        <li><a href={`tel:${site.phoneIntl}`}>Tel · {site.phoneDisplay}</a></li>
+        <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+        <li>
+          <a href={site.social.instagram} target="_blank" rel="noopener">
+            Instagram · {site.social.instagramHandle}
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="footer__col">
+      <h4>Base operativa</h4>
+      <address>
+        {site.address.street}<br />
+        {site.address.city}, {site.address.region}<br />
+        {site.address.country}
+      </address>
+      <p class="footer__hours">{site.hours}</p>
+    </div>
+  </div>
+
+  <div class="footer__bottom">
+    <div class="container footer__bottom-inner">
+      <span>© {year} Transporte Gioia e Hijos SRL · Todos los derechos reservados.</span>
+      <a
+        class="footer__creator"
+        href="https://api.whatsapp.com/send/?phone=5491138207230&text&type=phone_number&app_absent=0"
+        target="_blank"
+        rel="noopener"
+      >
+        <span class="footer__creator-label">Creado por</span>
+        <span class="footer__creator-badge">Pistech</span>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--ink);
+    color: var(--gris-300);
+    padding-top: 64px;
+  }
+
+  .footer__inner {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 48px;
+  }
+
+  .footer__brand strong {
+    display: block;
+    color: var(--white);
+    font-size: 1.1rem;
+    margin: 14px 0 8px;
+  }
+
+  .footer__mark {
+    width: auto;
+    height: 38px;
+    max-width: min(60vw, 220px);
+    border-radius: 8px;
+    object-fit: contain;
+    object-position: left center;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12);
+  }
+
+  .footer__tagline {
+    color: var(--gris-500);
+    font-size: 0.92rem;
+    margin: 0;
+  }
+
+  .footer__col h4 {
+    font-family: var(--font-body);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.78rem;
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+
+  .footer__col ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 8px;
+  }
+
+  .footer__col a {
+    color: var(--gris-300);
+    font-size: 0.92rem;
+    transition: color 0.15s ease;
+  }
+
+  .footer__col a:hover {
+    color: var(--white);
+  }
+
+  address {
+    font-style: normal;
+    font-size: 0.92rem;
+    color: var(--gris-300);
+    margin-bottom: 12px;
+  }
+
+  .footer__hours {
+    font-size: 0.86rem;
+    color: var(--gris-500);
+    margin: 0;
+  }
+
+  .footer__bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-block: 22px;
+  }
+
+  .footer__bottom-inner {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 0.82rem;
+    color: var(--gris-500);
+  }
+
+  .footer__creator {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: transform 0.15s ease;
+  }
+
+  .footer__creator-label {
+    color: var(--gris-300);
+    font-size: 1.05rem;
+    font-weight: 500;
+    line-height: 1;
+  }
+
+  .footer__creator-badge {
+    color: #e9d34f;
+    border: 2px solid var(--bordo);
+    border-radius: 3px;
+    padding: 3px 8px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    background: rgba(122, 31, 44, 0.1);
+  }
+
+  .footer__creator:hover {
+    transform: translateY(-1px);
+  }
+
+  .footer__creator:hover .footer__creator-badge {
+    color: #f8e174;
+    border-color: #9b2a3a;
+  }
+
+  @media (max-width: 880px) {
+    .footer__inner {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .footer__creator-label {
+      font-size: 0.95rem;
+    }
+
+    .footer__creator-badge {
+      font-size: 1rem;
+    }
+    .footer__mark {
+      height: 32px;
+      max-width: min(74vw, 180px);
+    }
+    .footer__inner {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

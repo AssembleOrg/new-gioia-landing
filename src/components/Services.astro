@@ -1,0 +1,216 @@
+---
+import { Image } from "astro:assets";
+import empleadosCajas from "../assets/images/empleados-cajas.png";
+import camionProvincia from "../assets/images/camion-provincia.png";
+import guardamueblesAzul from "../assets/images/guardamuebles-azul.png";
+
+const services = [
+  {
+    title: "Mudanzas residenciales y comerciales",
+    desc: "Departamentos, casas, PHs, oficinas y locales. Embalaje, traslado y armado con coordinación flexible según tu operación.",
+    img: empleadosCajas,
+    alt: "Equipo profesional realizando mudanza residencial y comercial",
+    pos: "center 38%",
+  },
+  {
+    title: "Mudanzas entre provincias",
+    desc: "Traslados de larga distancia con seguimiento. Origen y destino en cualquier provincia.",
+    img: camionProvincia,
+    alt: "Camión de mudanzas listo para traslado entre provincias",
+    pos: "center 52%",
+  },
+  {
+    title: "Guardamuebles",
+    desc: "Depósito seguro y vigilado. Tus cosas resguardadas todo el tiempo que necesites.",
+    img: guardamueblesAzul,
+    alt: "Depósito de guardamuebles con boxes individuales",
+    pos: "center 44%",
+  },
+];
+---
+
+<section id="servicios" class="services section">
+  <div class="container">
+    <header class="services__head">
+      <span class="eyebrow">Servicios</span>
+      <h2>Todo lo que necesitás para mover tu vida o tu empresa.</h2>
+      <p class="services__intro">
+        Cada mudanza es distinta. Por eso primero te asesoramos, después cotizamos y recién ahí
+        coordinamos. Sin sorpresas en el camino.
+      </p>
+    </header>
+
+    <div class="services__grid">
+      {
+        services.map((s, i) => (
+          <article
+            class:list={[
+              "service-card",
+              { "service-card--featured": i === 0, "service-card--secondary": i > 0 },
+            ]}
+            style={`--img-pos: ${s.pos};`}
+          >
+            <div class:list={["service-card__img", { "service-card__img--full": i === 0 }]}>
+              <Image
+                src={s.img}
+                alt={s.alt}
+                widths={[480, 720, 960, 1200]}
+                sizes="(max-width: 720px) 92vw, (max-width: 1120px) 46vw, 360px"
+                format="webp"
+                quality={80}
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="service-card__body">
+              <h3>{s.title}</h3>
+              <p>{s.desc}</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .services {
+    background: var(--gris-100);
+  }
+
+  .services__head {
+    max-width: 720px;
+    margin-bottom: 48px;
+  }
+
+  .services__head h2 {
+    color: var(--ink);
+  }
+
+  .services__intro {
+    color: var(--gris-700);
+    font-size: 1.05rem;
+  }
+
+  .services__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    align-items: stretch;
+  }
+
+  @media (max-width: 720px) {
+    .services__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .service-card {
+    background: var(--white);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .service-card--featured {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    align-items: stretch;
+  }
+
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .service-card__img {
+    overflow: hidden;
+    background: var(--ink);
+    aspect-ratio: 5 / 4;
+  }
+
+  .service-card--secondary .service-card__img {
+    aspect-ratio: auto;
+    min-height: clamp(210px, 22vw, 280px);
+  }
+
+  .service-card__img--full {
+    aspect-ratio: auto;
+    background: transparent;
+  }
+
+  .service-card__img :global(picture) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .service-card__img--full :global(picture) {
+    height: auto;
+  }
+
+  .service-card__img :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--img-pos, center center);
+    transition: transform 0.35s ease;
+  }
+
+  .service-card__img--full :global(img) {
+    height: auto;
+    object-fit: initial;
+    object-position: center;
+  }
+
+  .service-card:hover .service-card__img :global(img) {
+    transform: scale(1.04);
+  }
+
+  .service-card--featured:hover .service-card__img--full :global(img) {
+    transform: none;
+  }
+
+  .service-card__body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .service-card--featured .service-card__body {
+    padding: 28px;
+    justify-content: center;
+  }
+
+  .service-card__body h3 {
+    color: var(--bordo);
+    margin: 0;
+  }
+
+  .service-card__body p {
+    color: var(--gris-700);
+    font-size: 0.95rem;
+    margin: 0;
+  }
+
+  @media (max-width: 920px) {
+    .service-card--featured {
+      grid-template-columns: 1fr;
+    }
+
+    .service-card__img--full {
+      aspect-ratio: auto;
+    }
+
+    .service-card--secondary .service-card__img {
+      min-height: 0;
+      aspect-ratio: 5 / 4;
+    }
+  }
+</style>

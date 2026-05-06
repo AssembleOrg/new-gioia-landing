@@ -1,0 +1,181 @@
+---
+import "../styles/global.css";
+import { getImage } from "astro:assets";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import WhatsAppFloat from "../components/WhatsAppFloat.astro";
+import { site } from "../data/site";
+import camionFrontal from "../assets/images/camion-frontal.png";
+
+interface Props {
+  title?: string;
+  description?: string;
+  path?: string;
+  image?: ImageMetadata;
+}
+
+const {
+  title = `Mudanzas y Guardamuebles en Lanús | ${site.name}`,
+  description = "Mudanzas residenciales y comerciales, traslados entre provincias y servicio de guardamuebles seguro en Lanús, GBA y CABA. Cotización gratis por WhatsApp.",
+  path = "/",
+  image = camionFrontal,
+} = Astro.props;
+
+const ogOptimized = await getImage({
+  src: image,
+  width: 1200,
+  height: 630,
+  format: "jpg",
+  quality: 82,
+});
+
+const canonical = new URL(path, site.url).toString();
+const ogImage = new URL(ogOptimized.src, site.url).toString();
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "MovingCompany",
+  name: site.name,
+  alternateName: site.shortName,
+  description,
+  url: site.url,
+  telephone: site.phoneIntl,
+  email: site.email,
+  image: ogImage,
+  logo: new URL(site.logoPath, site.url).toString(),
+  priceRange: "$$",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: site.address.street,
+    addressLocality: site.address.city,
+    addressRegion: site.address.region,
+    addressCountry: "AR",
+    postalCode: site.address.postalCode,
+  },
+  areaServed: [
+    { "@type": "City", name: "Lanús" },
+    { "@type": "City", name: "Ciudad Autónoma de Buenos Aires" },
+    { "@type": "AdministrativeArea", name: "Gran Buenos Aires" },
+    { "@type": "Country", name: "Argentina" },
+  ],
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      opens: "08:00",
+      closes: "20:00",
+    },
+  ],
+  sameAs: [site.social.instagram],
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Servicios de mudanzas y guardamuebles",
+    itemListElement: [
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Mudanzas residenciales",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Mudanzas comerciales",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Mudanzas entre provincias",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Guardamuebles",
+        },
+      },
+    ],
+  },
+};
+---
+
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta
+      name="keywords"
+      content="mudanzas Lanús, mudanzas Buenos Aires, transporte Gioia, guardamuebles Lanús, mudanzas residenciales, mudanzas comerciales, mudanzas entre provincias, fletes Lanús, depósito de muebles"
+    />
+    <meta name="author" content={site.name} />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#7a1f2c" />
+    <meta name="geo.region" content="AR-B" />
+    <meta name="geo.placename" content="Lanús" />
+
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/favicon.ico" />
+    <link rel="sitemap" href="/sitemap.xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap"
+    />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <a href="#contenido" class="skip-link">Saltar al contenido</a>
+    <Header />
+    <main id="contenido">
+      <slot />
+    </main>
+    <Footer />
+    <WhatsAppFloat />
+
+    <style>
+      .skip-link {
+        position: absolute;
+        left: -9999px;
+        top: 0;
+        background: var(--bordo);
+        color: var(--white);
+        padding: 10px 16px;
+        border-radius: 0 0 8px 0;
+        z-index: 1000;
+      }
+      .skip-link:focus {
+        left: 0;
+      }
+    </style>
+  </body>
+</html>

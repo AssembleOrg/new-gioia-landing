@@ -1,0 +1,99 @@
+---
+import { site, whatsappLink } from "../data/site";
+---
+
+<header class="header">
+  <div class="container header__inner">
+    <a href="/" class="brand" aria-label={site.name}>
+      <img class="brand__mark" src={site.logoPath} alt={`Logo ${site.shortName}`} loading="eager" decoding="async" />
+    </a>
+
+    <nav class="nav" aria-label="Navegación principal">
+      <a href="#servicios">Servicios</a>
+      <a href="#proceso">Cómo trabajamos</a>
+      <a href="#guardamuebles">Guardamuebles</a>
+      <a href="#cobertura">Cobertura</a>
+      <a href="#faq">Preguntas</a>
+    </nav>
+
+    <a class="btn btn-primary header__cta" href={whatsappLink()} target="_blank" rel="noopener">
+      Cotizar por WhatsApp
+    </a>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(22, 22, 22, 0.92);
+    backdrop-filter: saturate(160%) blur(10px);
+    color: var(--white);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .header__inner {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    height: 72px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    color: var(--white);
+    flex-shrink: 0;
+  }
+
+  .brand__mark {
+    width: auto;
+    height: 34px;
+    max-width: min(44vw, 210px);
+    border-radius: 8px;
+    object-fit: contain;
+    object-position: left center;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12);
+  }
+
+  .nav {
+    display: flex;
+    gap: 28px;
+    margin-left: auto;
+    margin-right: 8px;
+  }
+
+  .nav a {
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--gris-200);
+    transition: color 0.15s ease;
+  }
+
+  .nav a:hover {
+    color: var(--white);
+  }
+
+  .header__cta {
+    padding: 10px 18px;
+    font-size: 0.88rem;
+  }
+
+  @media (max-width: 920px) {
+    .nav {
+      display: none;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .brand__mark {
+      height: 28px;
+      max-width: min(52vw, 155px);
+    }
+    .header__cta {
+      padding: 9px 14px;
+      font-size: 0.82rem;
+    }
+  }
+</style>
