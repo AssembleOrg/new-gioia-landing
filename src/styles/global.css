@@ -1,3 +1,28 @@
+@import "@fontsource/inter/latin-400.css";
+@import "@fontsource/inter/latin-500.css";
+@import "@fontsource/inter/latin-600.css";
+@import "@fontsource/inter/latin-700.css";
+@import "@fontsource/inter/latin-800.css";
+@import "@fontsource/bebas-neue/latin-400.css";
+
+@font-face {
+  font-family: "Bebas Fallback";
+  src: local("Arial Narrow Bold"), local("Impact"), local("Oswald"), local("Arial");
+  size-adjust: 88%;
+  ascent-override: 100%;
+  descent-override: 0%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial");
+  size-adjust: 107%;
+  ascent-override: 90%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+}
+
 :root {
   --bordo: #7a1f2c;
   --bordo-dark: #5c1620;
@@ -6,15 +31,15 @@
   --charcoal: #2a2a2a;
   --gris-900: #1f1f1f;
   --gris-700: #3d3d3d;
-  --gris-500: #6b6b6b;
+  --gris-500: #9a9a9a;
   --gris-300: #c9c9c9;
   --gris-200: #e5e5e5;
   --gris-100: #f4f4f4;
   --white: #ffffff;
   --whatsapp: #25d366;
 
-  --font-display: "Bebas Neue", "Oswald", system-ui, sans-serif;
-  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Bebas Neue", "Bebas Fallback", "Oswald", system-ui, sans-serif;
+  --font-body: "Inter", "Inter Fallback", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
   --radius-sm: 6px;
   --radius-md: 12px;
@@ -141,13 +166,13 @@ p {
 }
 
 .btn-whatsapp {
-  background: var(--whatsapp);
+  background: #0d6f3c;
   color: var(--white);
-  box-shadow: 0 8px 22px rgba(37, 211, 102, 0.35);
+  box-shadow: 0 8px 22px rgba(13, 111, 60, 0.35);
 }
 
 .btn-whatsapp:hover {
-  background: #1ebe57;
+  background: #0a5530;
 }
 
 .btn-ghost {
