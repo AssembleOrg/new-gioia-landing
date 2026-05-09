@@ -26,3 +26,10 @@ export const site = {
 
 export const whatsappLink = (msg = site.whatsappMessage) =>
   `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(msg)}`;
+
+const addressQuery = encodeURIComponent(
+  `${site.address.street}, ${site.address.city}, ${site.address.region}`
+);
+
+export const mapsUrl = `https://www.google.com/maps?q=${addressQuery}`;
+export const mapsEmbedUrl = `${mapsUrl}&output=embed`;

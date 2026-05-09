@@ -27,25 +27,28 @@ const faqs = [
 ];
 ---
 
-<section id="faq" class="faq section">
-  <div class="container">
+<section id="faq" class="faq">
+  <div class="container faq__layout">
     <header class="faq__head">
       <span class="eyebrow">Preguntas frecuentes</span>
-      <h2>Lo que más nos preguntan antes de contratar.</h2>
+      <h2 class="faq__title">Lo que más nos preguntan antes de contratar.</h2>
+      <p class="faq__intro">
+        Si no encontrás lo que buscás, escribinos por WhatsApp y te respondemos en minutos.
+      </p>
     </header>
 
     <div class="faq__list">
-      {
-        faqs.map((f, i) => (
-          <details class="faq__item" open={i === 0}>
-            <summary>
-              <span>{f.q}</span>
-              <span class="faq__plus" aria-hidden="true" />
-            </summary>
+      {faqs.map((f, i) => (
+        <details class="faq__item" open={i === 0}>
+          <summary>
+            <span class="faq__q">{f.q}</span>
+            <span class="faq__plus" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__answer">
             <p>{f.a}</p>
-          </details>
-        ))
-      }
+          </div>
+        </details>
+      ))}
     </div>
   </div>
 </section>
@@ -55,86 +58,70 @@ const faqs = [
   set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: "¿Cuánto tarda en llegar la cotización?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Si nos escribís por WhatsApp en horario laboral, te respondemos en menos de una hora con un primer estimativo. Para una cotización cerrada coordinamos visita o videollamada el mismo día o al siguiente.",
-        },
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: f.a,
       },
-      {
-        "@type": "Question",
-        name: "¿Cobran por la visita o asesoría?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "No. La asesoría y el presupuesto son sin cargo y sin compromiso. Recién facturamos cuando confirmás el servicio.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "¿Hacen mudanzas fuera del AMBA?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Sí. Realizamos traslados a todas las provincias del país. Coordinamos fecha y hora según disponibilidad y kilometraje.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "¿Embalan ellos o tengo que dejar todo en cajas?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Las dos opciones son posibles. Podemos llevar materiales y embalar lo delicado o trabajar con cajas que ya tengas armadas.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "¿Qué pasa si necesito guardar las cosas un tiempo?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Tenemos servicio de guardamuebles propio. Tus pertenencias quedan en boxes individuales en un depósito vigilado.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "¿Trabajan los fines de semana?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Sí, atendemos sábados y, según disponibilidad, también domingos. Para mudanzas comerciales coordinamos fuera del horario operativo de tu empresa.",
-        },
-      },
-    ],
+    })),
   })}
 />
 
 <style>
   .faq {
-    background: var(--gris-100);
+    background: var(--white);
+    padding-block: clamp(80px, 12vw, 130px);
+  }
+
+  .faq__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+    gap: clamp(28px, 5vw, 80px);
+    align-items: start;
   }
 
   .faq__head {
-    max-width: 640px;
-    margin-bottom: 40px;
+    position: sticky;
+    top: 100px;
+  }
+
+  .faq__title {
+    color: var(--ink);
+    font-size: clamp(2rem, 3.6vw, 2.8rem);
+    margin-bottom: 16px;
+  }
+
+  .faq__intro {
+    color: var(--gris-700);
+    font-size: 0.98rem;
+    line-height: 1.55;
+    max-width: 36ch;
+    margin: 0;
   }
 
   .faq__list {
-    display: grid;
-    gap: 12px;
-    max-width: 820px;
+    display: flex;
+    flex-direction: column;
   }
 
   .faq__item {
-    background: var(--white);
-    border: 1px solid var(--gris-200);
-    border-radius: var(--radius-md);
-    padding: 18px 22px;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    border-top: 1px solid var(--gris-200);
+    padding: 0;
+    transition: border-color 0.3s ease;
+  }
+
+  .faq__item:last-child {
+    border-bottom: 1px solid var(--gris-200);
   }
 
   .faq__item[open] {
-    border-color: var(--bordo);
-    box-shadow: var(--shadow-sm);
+    border-top-color: var(--bordo);
+  }
+
+  .faq__item[open] + .faq__item {
+    border-top-color: var(--bordo);
   }
 
   .faq__item summary {
@@ -144,30 +131,44 @@ const faqs = [
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    font-weight: 600;
+    padding: 24px 4px;
+    min-height: 44px;
+    font-family: var(--font-display);
+    font-weight: 400;
     color: var(--ink);
-    font-size: 1.02rem;
+    font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    line-height: 1.25;
+    transition: color 0.2s ease;
   }
 
   .faq__item summary::-webkit-details-marker {
     display: none;
   }
 
+  .faq__item:hover summary,
+  .faq__item[open] summary {
+    color: var(--bordo);
+  }
+
   .faq__plus {
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
     flex-shrink: 0;
     position: relative;
+    transition: transform 0.35s var(--ease-out-expo);
   }
 
   .faq__plus::before,
   .faq__plus::after {
     content: "";
     position: absolute;
-    background: var(--bordo);
+    background: currentColor;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    border-radius: 1px;
   }
 
   .faq__plus::before {
@@ -178,17 +179,44 @@ const faqs = [
   .faq__plus::after {
     width: 2px;
     height: 14px;
-    transition: transform 0.2s ease;
+    transition: transform 0.35s var(--ease-out-expo);
+  }
+
+  .faq__item[open] .faq__plus {
+    transform: rotate(180deg);
   }
 
   .faq__item[open] .faq__plus::after {
     transform: translate(-50%, -50%) scaleY(0);
   }
 
-  .faq__item p {
-    margin: 14px 0 0;
+  .faq__answer {
+    overflow: hidden;
+    padding: 0 4px 24px;
+  }
+
+  .faq__answer p {
+    margin: 0;
     color: var(--gris-700);
-    font-size: 0.96rem;
-    line-height: 1.6;
+    font-size: 1rem;
+    line-height: 1.65;
+    max-width: 64ch;
+  }
+
+  @media (max-width: 880px) {
+    .faq__layout {
+      grid-template-columns: 1fr;
+    }
+
+    .faq__head {
+      position: static;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .faq__plus,
+    .faq__plus::after {
+      transition: none;
+    }
   }
 </style>

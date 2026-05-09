@@ -1,39 +1,51 @@
 ---
 import { Image } from "astro:assets";
+import { whatsappLink } from "../data/site";
 import empleadosCajas from "../assets/images/empleados-cajas.png";
 import camionProvincia from "../assets/images/camion-provincia.png";
 import guardamueblesAzul from "../assets/images/guardamuebles-azul.png";
 
 const services = [
   {
+    n: "01",
     title: "Mudanzas residenciales y comerciales",
     desc: "Departamentos, casas, PHs, oficinas y locales. Embalaje, traslado y armado con coordinación flexible según tu operación.",
+    bullets: ["Departamentos", "Casas y PHs", "Oficinas", "Locales"],
     img: empleadosCajas,
     alt: "Equipo profesional realizando mudanza residencial y comercial",
     pos: "center 38%",
+    tag: "Más solicitado",
+    msg: "Hola Transporte Gioia, quisiera cotizar una mudanza residencial/comercial.",
   },
   {
+    n: "02",
     title: "Mudanzas entre provincias",
     desc: "Traslados de larga distancia con seguimiento. Origen y destino en cualquier provincia.",
+    bullets: ["Cobertura nacional", "Seguimiento en ruta"],
     img: camionProvincia,
     alt: "Camión de mudanzas listo para traslado entre provincias",
     pos: "center 65%",
+    msg: "Hola Transporte Gioia, quisiera cotizar una mudanza entre provincias.",
   },
   {
+    n: "03",
     title: "Guardamuebles",
     desc: "Depósito seguro y vigilado. Tus cosas resguardadas todo el tiempo que necesites.",
+    bullets: ["Boxes individuales", "Vigilancia 24h"],
     img: guardamueblesAzul,
     alt: "Depósito de guardamuebles con boxes individuales",
     pos: "center 70%",
+    msg: "Hola Transporte Gioia, quisiera consultar disponibilidad de guardamuebles.",
   },
 ];
 ---
 
-<section id="servicios" class="services section">
+<section id="servicios" class="services" data-services>
   <div class="container">
     <header class="services__head">
-      <span class="eyebrow">Servicios</span>
-      <h2>Todo lo que necesitás para mover tu vida o tu empresa.</h2>
+      <span class="eyebrow eyebrow--light">Servicios</span>
+
+      <h2 class="services__title">Todo lo que necesitás para mover tu vida o tu empresa.</h2>
       <p class="services__intro">
         Cada mudanza es distinta. Por eso primero te asesoramos, después cotizamos y recién ahí
         coordinamos. Sin sorpresas en el camino.
@@ -41,188 +53,408 @@ const services = [
     </header>
 
     <div class="services__grid">
-      {
-        services.map((s, i) => (
-          <article
-            class:list={[
-              "service-card",
-              { "service-card--featured": i === 0, "service-card--secondary": i > 0 },
-            ]}
-            style={`--img-pos: ${s.pos};`}
-          >
-            <div class:list={["service-card__img", { "service-card__img--full": i === 0 }]}>
-              <Image
-                src={s.img}
-                alt={s.alt}
-                widths={[480, 720, 960, 1200]}
-                sizes="(max-width: 720px) 92vw, (max-width: 1120px) 46vw, 360px"
-                format="webp"
-                quality={80}
-                loading="lazy"
-                decoding="async"
-              />
+      {services.map((s, i) => (
+        <article class:list={["card", { "card--big": i === 0, "card--bare": i === 0 }]} data-card>
+          <div class="card__media">
+            <Image
+              src={s.img}
+              alt={s.alt}
+              widths={[480, 720, 960, 1200]}
+              sizes={i === 0
+                ? "(max-width: 880px) 92vw, 760px"
+                : "(max-width: 880px) 92vw, 380px"}
+              format="webp"
+              quality={80}
+              loading="lazy"
+              decoding="async"
+              style={`object-position: ${s.pos};`}
+            />
+          </div>
+
+          {i !== 0 && <div class="card__veil"></div>}
+
+          {i !== 0 && (
+            <div class="card__body">
+              <span class="card__num">{s.n}</span>
+              <h3 class="card__title">{s.title}</h3>
+              <p class="card__desc">{s.desc}</p>
+              <ul class="card__bullets" aria-label={`Detalles de ${s.title}`}>
+                {s.bullets.map((b) => <li>{b}</li>)}
+              </ul>
+              <a class="card__cta" href={whatsappLink(s.msg)} target="_blank" rel="noopener" aria-label={`Cotizar ${s.title}`}>
+                Cotizar este servicio
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
             </div>
-            <div class="service-card__body">
-              <h3>{s.title}</h3>
-              <p>{s.desc}</p>
-            </div>
-          </article>
-        ))
-      }
+          )}
+        </article>
+      ))}
     </div>
   </div>
 </section>
 
 <style>
   .services {
-    background: var(--gris-100);
+    background: var(--ink-deep);
+    color: var(--white);
+    padding-block: clamp(80px, 12vw, 140px);
+    position: relative;
+    isolation: isolate;
+  }
+
+  .services::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(800px 600px at 90% -10%, rgba(122, 31, 44, 0.18) 0%, transparent 60%),
+      radial-gradient(600px 500px at -10% 100%, rgba(122, 31, 44, 0.12) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .services > .container {
+    position: relative;
+    z-index: 1;
   }
 
   .services__head {
-    max-width: 720px;
-    margin-bottom: 48px;
+    max-width: 760px;
+    margin-bottom: clamp(48px, 7vw, 80px);
   }
 
-  .services__head h2 {
-    color: var(--ink);
+  .services__title {
+    color: var(--white);
+    font-size: clamp(2rem, 4.6vw, 3.4rem);
+    margin-bottom: 20px;
   }
 
   .services__intro {
-    color: var(--gris-700);
-    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.65);
+    font-size: clamp(1rem, 1.2vw, 1.1rem);
+    line-height: 1.55;
+    max-width: 60ch;
+    margin: 0;
   }
 
+  /* Bento Grid: 3 cols × 2 rows */
   .services__grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 24px;
-    align-items: stretch;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: 480px 320px;
+    gap: 16px;
   }
 
-  @media (max-width: 720px) {
-    .services__grid {
-      grid-template-columns: 1fr;
-    }
+  /* Card base */
+  .card {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    background: #161616;
+    isolation: isolate;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: border-color 0.4s ease;
+    min-height: 280px;
   }
 
-  .service-card {
+  .card:hover {
+    border-color: rgba(155, 42, 58, 0.55);
+  }
+
+  .card--big {
+    grid-column: 1 / 3;
+    grid-row: 1 / 3;
+  }
+
+  /* Media layer */
+  .card__media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .card__media :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.5) saturate(0.95);
+    transform: scale(1.04);
+    transition: transform 0.9s var(--ease-out-expo), filter 0.6s ease;
+    will-change: transform;
+  }
+
+  .card:hover .card__media :global(img) {
+    transform: scale(1.1);
+    filter: brightness(0.65) saturate(1.05);
+  }
+
+  /* Card "bare": muestra la imagen tal cual sin filtros ni overlays */
+  .card--bare .card__media :global(img) {
+    filter: none;
+    transform: scale(1);
+  }
+
+  .card--bare:hover .card__media :global(img) {
+    filter: none;
+    transform: scale(1.03);
+  }
+
+  /* Gradient veil */
+  .card__veil {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(180deg, rgba(10, 10, 10, 0.15) 0%, rgba(10, 10, 10, 0.4) 40%, rgba(10, 10, 10, 0.95) 100%);
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+  }
+
+  .card:hover .card__veil {
+    opacity: 0.85;
+  }
+
+  /* Tag */
+  .card__tag {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: rgba(155, 42, 58, 0.95);
+    color: var(--white);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    border-radius: 999px;
+    backdrop-filter: blur(8px);
+  }
+
+  .card__tag::before {
+    content: "";
+    width: 6px;
+    height: 6px;
     background: var(--white);
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    box-shadow: var(--shadow-sm);
-    border: 1px solid rgba(0, 0, 0, 0.04);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    display: flex;
-    flex-direction: column;
+    border-radius: 999px;
   }
 
-  .service-card--featured {
-    grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-    align-items: stretch;
-  }
-
-  .service-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
-  }
-
-  .service-card__img {
-    overflow: hidden;
-    background: var(--ink);
-    aspect-ratio: 5 / 4;
-  }
-
-  .service-card--secondary .service-card__img {
-    aspect-ratio: 4 / 3;
-    min-height: 0;
-    background: var(--gris-200);
-  }
-
-  .service-card__img--full {
-    aspect-ratio: auto;
-    background: transparent;
-  }
-
-  .service-card__img :global(picture) {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
-
-  .service-card__img--full :global(picture) {
-    height: auto;
-  }
-
-  .service-card__img :global(img) {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: var(--img-pos, center center);
-    transition: none;
-  }
-
-  .service-card--secondary .service-card__img :global(img) {
-    height: 100%;
-    object-fit: cover;
-    object-position: var(--img-pos, center 84%);
-    transform: none;
-  }
-
-  .service-card__img--full :global(img) {
-    height: auto;
-    object-fit: initial;
-    object-position: center;
-  }
-
-  .service-card:hover .service-card__img :global(img) {
-    transform: none;
-  }
-
-  .service-card--secondary:hover .service-card__img :global(img) {
-    transform: none;
-  }
-
-  .service-card--featured:hover .service-card__img--full :global(img) {
-    transform: none;
-  }
-
-  .service-card__body {
-    padding: 24px;
+  /* Body */
+  .card__body {
+    position: absolute;
+    z-index: 2;
+    inset: auto 0 0 0;
+    padding: clamp(20px, 3vw, 36px);
     display: flex;
     flex-direction: column;
     gap: 10px;
   }
 
-  .service-card--featured .service-card__body {
-    padding: 28px;
-    justify-content: center;
+  .card__num {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
   }
 
-  .service-card__body h3 {
-    color: var(--bordo);
+  .card__title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    color: var(--white);
     margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    line-height: 0.98;
   }
 
-  .service-card__body p {
-    color: var(--gris-700);
-    font-size: 0.95rem;
+  .card--big .card__title {
+    font-size: clamp(1.7rem, 3vw, 2.6rem);
+    max-width: 16ch;
+  }
+
+  .card:not(.card--big) .card__title {
+    font-size: clamp(1.3rem, 2vw, 1.6rem);
+    max-width: 14ch;
+  }
+
+  .card__desc {
+    color: rgba(255, 255, 255, 0.78);
+    font-size: clamp(0.92rem, 1vw, 1rem);
+    line-height: 1.5;
     margin: 0;
+    max-width: 48ch;
   }
 
-  @media (max-width: 920px) {
-    .service-card--featured {
+  .card:not(.card--big) .card__desc {
+    font-size: 0.88rem;
+    max-width: 36ch;
+  }
+
+  /* Bullets reveal on hover */
+  .card__bullets {
+    list-style: none;
+    margin: 6px 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transform: translateY(8px);
+    transition: opacity 0.4s ease, max-height 0.5s ease, transform 0.5s var(--ease-out-expo), margin 0.4s ease;
+  }
+
+  .card:hover .card__bullets,
+  .card:focus-within .card__bullets {
+    opacity: 1;
+    max-height: 80px;
+    transform: translateY(0);
+    margin-top: 6px;
+  }
+
+  .card__bullets li {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--white);
+    padding: 4px 10px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+  }
+
+  /* CTA link */
+  .card__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--white);
+    font-weight: 600;
+    font-size: 0.88rem;
+    margin-top: 8px;
+    padding-bottom: 2px;
+    align-self: flex-start;
+    position: relative;
+    min-height: 32px;
+  }
+
+  .card__cta::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--white);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s var(--ease-out-expo);
+  }
+
+  .card__cta:hover {
+    color: var(--white);
+  }
+
+  .card__cta:hover::after {
+    transform: scaleX(1);
+  }
+
+  .card__cta svg {
+    transition: transform 0.3s var(--ease-out-expo);
+  }
+
+  .card__cta:hover svg {
+    transform: translateX(4px);
+  }
+
+  /* Tablet */
+  @media (max-width: 1080px) {
+    .services__grid {
+      grid-template-rows: 440px 280px;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 880px) {
+    .services__grid {
       grid-template-columns: 1fr;
+      grid-template-rows: none;
+      gap: 12px;
     }
 
-    .service-card__img--full {
-      aspect-ratio: auto;
+    .card,
+    .card--big {
+      grid-column: auto;
+      grid-row: auto;
+      aspect-ratio: 5 / 6;
     }
 
-    .service-card--secondary .service-card__img {
-      min-height: 0;
-      aspect-ratio: 5 / 4;
+    /* Touch: bullets always visible (no hover on touch) */
+    .card__bullets {
+      opacity: 1;
+      max-height: 80px;
+      transform: translateY(0);
+      margin-top: 6px;
+    }
+
+    .card {
+      border-color: rgba(155, 42, 58, 0.25);
+    }
+
+    .card__veil {
+      opacity: 0.95;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .card,
+    .card--big {
+      aspect-ratio: 4 / 5;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card__media :global(img),
+    .card__veil,
+    .card__bullets,
+    .card__cta::after,
+    .card__cta svg {
+      transition: none;
     }
   }
 </style>
+
+<script>
+  import { animate, inView } from "motion";
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const root = document.querySelector<HTMLElement>('[data-services]');
+  if (root && !reduce) {
+    const head = root.querySelector<HTMLElement>('.services__head');
+    const cards = root.querySelectorAll<HTMLElement>('[data-card]');
+
+    if (head) {
+      head.style.opacity = '0';
+      head.style.transform = 'translateY(24px)';
+      inView(head, () => {
+        animate(head, { opacity: [0, 1], transform: ['translateY(24px)', 'translateY(0)'] }, { duration: 0.85, easing: [0.16, 1, 0.3, 1] });
+      }, { amount: 0.3 });
+    }
+
+    cards.forEach((card, i) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(32px)';
+      inView(card, () => {
+        animate(card, { opacity: [0, 1], transform: ['translateY(32px)', 'translateY(0)'] }, { duration: 0.85, delay: i * 0.12, easing: [0.16, 1, 0.3, 1] });
+      }, { amount: 0.15 });
+    });
+  }
+</script>

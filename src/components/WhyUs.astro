@@ -21,110 +21,374 @@ const reasons = [
     desc: "Te visitamos o coordinamos por video llamada para cotizar con precisión, sin compromiso.",
   },
 ];
+
+const values = [
+  {
+    icon: "spark",
+    title: "Innovación",
+    desc: "Nos adaptamos a las nuevas demandas del mercado logístico.",
+  },
+  {
+    icon: "shield",
+    title: "Seguridad",
+    desc: "Equipo capacitado y procesos que garantizan que llegue en tiempo y forma.",
+  },
+  {
+    icon: "heart",
+    title: "Compromiso",
+    desc: "Calidad y responsabilidad en cada entrega, sin excepción.",
+  },
+];
 ---
 
-<section class="why section">
+<section class="why" data-why>
   <div class="container">
-    <header class="why__head">
-      <span class="eyebrow">Por qué Gioia e Hijos</span>
-      <h2>Una empresa familiar con la espalda de una operadora.</h2>
-      <p class="why__intro">
-        Somos una SRL con flota propia, depósito habilitado y un equipo que se mueve todos los días
-        por el AMBA. Cuidamos cada mudanza como si fuera la nuestra.
-      </p>
-    </header>
+    <div class="why__layout">
+      <div class="why__main">
+        <header class="why__head">
+          <span class="eyebrow">Por qué Gioia e Hijos</span>
+          <h2>Una empresa familiar con la espalda de una operadora.</h2>
+        </header>
 
-    <div class="why__grid">
-      {
-        reasons.map((r) => (
-          <article class="reason">
-            <div class="reason__icon" aria-hidden="true">
-              {r.icon === "shield" && (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M12 2 4 5v6c0 5 3.5 9.5 8 11 4.5-1.5 8-6 8-11V5l-8-3z" stroke-linejoin="round" />
-                  <path d="m9 12 2 2 4-4" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              )}
-              {r.icon === "clock" && (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="12" cy="12" r="9" />
-                  <path d="M12 7v5l3 2" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              )}
-              {r.icon === "users" && (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M16 11a4 4 0 1 0-4-4" stroke-linecap="round" />
-                  <circle cx="9" cy="7" r="4" />
-                  <path d="M2 21v-1a6 6 0 0 1 6-6h2a6 6 0 0 1 6 6v1M22 21v-1a6 6 0 0 0-4-5.66" stroke-linecap="round" />
-                </svg>
-              )}
-              {r.icon === "bubble" && (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M21 11.5A8.5 8.5 0 1 1 12.5 3c4.694 0 8.5 3.806 8.5 8.5z" />
-                  <path d="M8 17l-4 3v-3" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              )}
-            </div>
-            <h3>{r.title}</h3>
-            <p>{r.desc}</p>
-          </article>
-        ))
-      }
+        <div class="why__grid">
+          {reasons.map((r) => (
+            <article class="reason fade-up-init" data-reason>
+              <div class="reason__icon" aria-hidden="true">
+                {r.icon === "shield" && (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M12 2 4 5v6c0 5 3.5 9.5 8 11 4.5-1.5 8-6 8-11V5l-8-3z" stroke-linejoin="round" />
+                    <path d="m9 12 2 2 4-4" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                )}
+                {r.icon === "clock" && (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M12 7v5l3 2" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                )}
+                {r.icon === "users" && (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M16 11a4 4 0 1 0-4-4" stroke-linecap="round" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M2 21v-1a6 6 0 0 1 6-6h2a6 6 0 0 1 6 6v1M22 21v-1a6 6 0 0 0-4-5.66" stroke-linecap="round" />
+                  </svg>
+                )}
+                {r.icon === "bubble" && (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M21 11.5A8.5 8.5 0 1 1 12.5 3c4.694 0 8.5 3.806 8.5 8.5z" />
+                    <path d="M8 17l-4 3v-3" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                )}
+              </div>
+              <h3>{r.title}</h3>
+              <p>{r.desc}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <aside class="why__aside fade-up-init" data-aside>
+        <div class="why__aside-decor" aria-hidden="true"></div>
+        <span class="why__aside-eyebrow">Identidad</span>
+        <h3 class="why__aside-title">Nacidos en Lanús, creciendo con cada mudanza.</h3>
+        <p class="why__aside-lead">
+          Transporte Gioia e Hijos SRL nació en el barrio de Lanús, zona sur del Gran Buenos Aires.
+          Crecemos adaptándonos a las nuevas demandas del mercado logístico para ser un socio
+          estratégico en cada entrega.
+        </p>
+
+        <ul class="why__values">
+          {values.map((v) => (
+            <li class="why__value">
+              <span class="why__value-icon" aria-hidden="true">
+                {v.icon === "spark" && (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z" stroke-linejoin="round" />
+                  </svg>
+                )}
+                {v.icon === "shield" && (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M12 2 4 5v6c0 5 3.5 9.5 8 11 4.5-1.5 8-6 8-11V5l-8-3z" stroke-linejoin="round" />
+                    <path d="m9 12 2 2 4-4" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                )}
+                {v.icon === "heart" && (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.5 4 4 0 0 1 7 2.5c0 5.5-7 10-7 10z" stroke-linejoin="round" />
+                  </svg>
+                )}
+              </span>
+              <div class="why__value-text">
+                <strong>{v.title}</strong>
+                <span>{v.desc}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </aside>
     </div>
   </div>
 </section>
 
 <style>
   .why {
-    background: var(--white);
+    background: var(--gris-50);
+    padding-block: clamp(80px, 12vw, 130px);
+  }
+
+  .why__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    gap: clamp(28px, 4vw, 56px);
+    align-items: stretch;
   }
 
   .why__head {
-    max-width: 760px;
-    margin-bottom: 56px;
+    max-width: 640px;
+    margin-bottom: 48px;
   }
 
-  .why__intro {
-    color: var(--gris-700);
-    font-size: 1.05rem;
+  .why__head h2 {
+    color: var(--ink);
   }
 
   .why__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 32px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
   }
 
   .reason {
-    padding: 0;
+    background: var(--white);
+    border: 1px solid var(--gris-200);
+    border-radius: var(--radius-lg);
+    padding: 28px 26px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .reason:hover {
+    border-color: var(--bordo);
+    box-shadow: var(--shadow-md);
   }
 
   .reason__icon {
-    width: 56px;
-    height: 56px;
-    border-radius: 14px;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
     background: linear-gradient(135deg, var(--bordo) 0%, var(--bordo-dark) 100%);
     color: var(--white);
     display: grid;
     place-items: center;
     margin-bottom: 18px;
-    box-shadow: 0 8px 18px rgba(122, 31, 44, 0.25);
+    box-shadow: 0 8px 18px rgba(122, 31, 44, 0.22);
   }
 
   .reason__icon svg {
-    width: 28px;
-    height: 28px;
+    width: 22px;
+    height: 22px;
   }
 
   .reason h3 {
     color: var(--ink);
-    font-size: 1.4rem;
-    margin-bottom: 8px;
+    font-size: 1.25rem;
+    margin: 0 0 6px;
   }
 
   .reason p {
     color: var(--gris-700);
-    font-size: 0.95rem;
+    font-size: 0.93rem;
+    line-height: 1.55;
     margin: 0;
   }
+
+  /* Aside (bordó card) */
+  .why__aside {
+    position: relative;
+    background: linear-gradient(160deg, var(--bordo) 0%, var(--bordo-dark) 100%);
+    color: var(--white);
+    border-radius: var(--radius-lg);
+    padding: clamp(32px, 4vw, 44px);
+    overflow: hidden;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    box-shadow: 0 24px 60px rgba(122, 31, 44, 0.25);
+  }
+
+  .why__aside-decor {
+    position: absolute;
+    top: -80px;
+    right: -80px;
+    width: 280px;
+    height: 280px;
+    border-radius: 999px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 70%);
+    z-index: 0;
+  }
+
+  .why__aside::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .why__aside-eyebrow,
+  .why__aside-title,
+  .why__aside-lead,
+  .why__values {
+    position: relative;
+    z-index: 1;
+  }
+
+  .why__aside-eyebrow {
+    font-size: 0.74rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--gris-200);
+    display: inline-block;
+  }
+
+  .why__aside-title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.5rem, 2.4vw, 2rem);
+    line-height: 1.1;
+    margin: 0;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+  }
+
+  .why__aside-lead {
+    font-family: var(--font-body);
+    font-size: 0.96rem;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.82);
+    margin: 0;
+    max-width: 42ch;
+  }
+
+  .why__values {
+    list-style: none;
+    margin: auto 0 0;
+    padding: 8px 0 0;
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  .why__value {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .why__value:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .why__value-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    color: var(--white);
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+
+  .why__value-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .why__value-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .why__value-text strong {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--white);
+    letter-spacing: 0.01em;
+  }
+
+  .why__value-text span {
+    font-family: var(--font-body);
+    font-size: 0.84rem;
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  /* Tablet */
+  @media (max-width: 1080px) {
+    .why__layout {
+      grid-template-columns: 1fr;
+    }
+
+    .why__aside {
+      order: -1;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 720px) {
+    .why__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .why__head {
+      margin-bottom: 32px;
+    }
+
+    .why__aside {
+      padding: 28px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reason {
+      transition: none;
+    }
+  }
 </style>
+
+<script>
+  import { animate, inView } from "motion";
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const root = document.querySelector<HTMLElement>('[data-why]');
+  if (root && !reduce) {
+    const reasons = root.querySelectorAll<HTMLElement>('[data-reason]');
+    const aside = root.querySelector<HTMLElement>('[data-aside]');
+
+    reasons.forEach((el, i) => {
+      inView(el, () => {
+        animate(el, { opacity: [0, 1], transform: ['translateY(24px)', 'translateY(0)'] }, { duration: 0.7, delay: i * 0.08, easing: [0.16, 1, 0.3, 1] });
+      }, { amount: 0.2 });
+    });
+
+    if (aside) {
+      inView(aside, () => {
+        animate(aside, { opacity: [0, 1], transform: ['translateY(24px)', 'translateY(0)'] }, { duration: 0.85, easing: [0.16, 1, 0.3, 1] });
+      }, { amount: 0.2 });
+    }
+  }
+</script>

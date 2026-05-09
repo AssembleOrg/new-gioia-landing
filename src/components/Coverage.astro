@@ -1,141 +1,306 @@
 ---
-const zonas = [
+import { site, mapsUrl, mapsEmbedUrl } from "../data/site";
+
+const ambaZones = [
+  "CABA",
   "Lanús",
   "Avellaneda",
   "Lomas de Zamora",
   "Quilmes",
   "Banfield",
-  "CABA",
   "Zona Sur",
   "Zona Oeste",
   "Zona Norte",
   "La Plata",
-  "Mar del Plata",
-  "Todas las provincias",
 ];
+
+const otherZones = [
+  { label: "Mar del Plata", highlight: false },
+  { label: "Todas las provincias", highlight: true },
+];
+
 ---
 
-<section id="cobertura" class="coverage section">
-  <div class="container coverage__inner">
-    <div class="coverage__content">
+<section id="cobertura" class="coverage" data-coverage>
+  <div class="container">
+    <header class="coverage__head">
       <span class="eyebrow">Cobertura</span>
-      <h2>Operamos en todo el AMBA y todas las provincias.</h2>
+      <h2 class="coverage__title">Operamos en todo el AMBA y todas las provincias.</h2>
       <p class="coverage__lead">
         Base en Lanús, salidas diarias por Buenos Aires y traslados de larga distancia coordinados
         para todo el país. Si tu destino no aparece en la lista, consultanos: probablemente vamos.
       </p>
+    </header>
 
-      <ul class="coverage__zones">
-        {zonas.map((z) => <li>{z}</li>)}
-      </ul>
+    <div class="coverage__split">
+      <div class="coverage__map-card">
+        <iframe
+          class="coverage__map"
+          src={mapsEmbedUrl}
+          title="Ubicación de Transporte Gioia e Hijos en Lanús, Buenos Aires"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          aria-label="Mapa de la base operativa en Mendoza 2765, Lanús"
+        ></iframe>
+
+        <div class="coverage__base">
+          <div class="coverage__base-info">
+            <span class="coverage__base-eyebrow">Base operativa</span>
+            <strong class="coverage__base-addr">
+              {site.address.street}<br />
+              {site.address.city}, {site.address.region}
+            </strong>
+          </div>
+          <a class="coverage__base-link" href={mapsUrl} target="_blank" rel="noopener" aria-label="Abrir ubicación en Google Maps">
+            Ver en Google Maps
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="coverage__zones">
+        <div class="coverage__zone-group">
+          <span class="coverage__zone-label">Buenos Aires y AMBA</span>
+          <ul class="coverage__zone-list coverage__zone-list--two">
+            {ambaZones.map((z) => <li>{z}</li>)}
+          </ul>
+        </div>
+
+        <div class="coverage__zone-group">
+          <span class="coverage__zone-label">Resto del país</span>
+          <ul class="coverage__zone-list">
+            {otherZones.map((z) => (
+              <li class:list={{ "is-highlight": z.highlight }}>{z.label}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </div>
-
-    <aside class="coverage__card">
-      <h3>Base operativa</h3>
-      <p class="coverage__addr">
-        Mendoza 2765<br />
-        Lanús, Buenos Aires
-      </p>
-
-      <iframe
-        src="https://www.google.com/maps?q=Mendoza+2765,+Lan%C3%BAs,+Buenos+Aires&output=embed"
-        title="Ubicación Transporte Gioia e Hijos"
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-      ></iframe>
-
-      <a
-        class="coverage__link"
-        href="https://www.google.com/maps?q=Mendoza+2765,+Lan%C3%BAs,+Buenos+Aires"
-        target="_blank"
-        rel="noopener"
-      >
-        Ver en Google Maps →
-      </a>
-    </aside>
   </div>
 </section>
 
 <style>
   .coverage {
-    background: var(--white);
+    background: var(--gris-50);
+    padding-block: clamp(80px, 12vw, 130px);
   }
 
-  .coverage__inner {
-    display: grid;
-    grid-template-columns: 1.1fr 1fr;
-    gap: clamp(28px, 5vw, 64px);
-    align-items: start;
+  .coverage__head {
+    max-width: 720px;
+    margin-bottom: clamp(40px, 6vw, 64px);
   }
 
-  .coverage__content h2 {
+  .coverage__title {
     color: var(--ink);
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 18px;
   }
 
   .coverage__lead {
     color: var(--gris-700);
-    font-size: 1.05rem;
-    margin-bottom: 28px;
-  }
-
-  .coverage__zones {
-    list-style: none;
+    font-size: clamp(1rem, 1.2vw, 1.1rem);
+    line-height: 1.6;
     margin: 0;
-    padding: 0;
+  }
+
+  /* Split layout */
+  .coverage__split {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: clamp(28px, 4vw, 48px);
+    align-items: stretch;
+  }
+
+  /* Map card */
+  .coverage__map-card {
+    background: var(--white);
+    border: 1px solid var(--gris-200);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    flex-direction: column;
+    min-height: clamp(360px, 52vh, 480px);
   }
 
-  .coverage__zones li {
-    background: var(--gris-100);
-    color: var(--ink);
-    padding: 8px 16px;
-    border-radius: 999px;
-    font-size: 0.88rem;
-    font-weight: 500;
-    border: 1px solid var(--gris-200);
-  }
-
-  .coverage__card {
-    background: var(--gris-100);
-    border-radius: var(--radius-md);
-    padding: 28px;
-    border: 1px solid var(--gris-200);
-  }
-
-  .coverage__card h3 {
-    color: var(--bordo);
-    margin-bottom: 8px;
-  }
-
-  .coverage__addr {
-    color: var(--ink);
-    font-weight: 500;
-    margin-bottom: 18px;
-  }
-
-  .coverage__card iframe {
+  .coverage__map {
+    flex: 1;
     width: 100%;
-    height: 240px;
     border: 0;
-    border-radius: var(--radius-sm);
-    margin-bottom: 14px;
+    display: block;
+    min-height: 280px;
   }
 
-  .coverage__link {
+  .coverage__base {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    background: var(--white);
+    border-top: 1px solid var(--gris-200);
+  }
+
+  .coverage__base-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  .coverage__base-eyebrow {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--bordo);
+  }
+
+  .coverage__base-addr {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+    line-height: 1.2;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+  }
+
+  .coverage__base-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     color: var(--bordo);
     font-weight: 600;
     font-size: 0.92rem;
+    min-height: 44px;
+    padding: 8px 0;
+    white-space: nowrap;
   }
 
-  .coverage__link:hover {
+  .coverage__base-link svg {
+    transition: transform 0.3s var(--ease-out-expo);
+  }
+
+  .coverage__base-link:hover {
     color: var(--bordo-dark);
   }
 
-  @media (max-width: 880px) {
-    .coverage__inner {
+  .coverage__base-link:hover svg {
+    transform: translateX(4px);
+  }
+
+  /* Zones */
+  .coverage__zones {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    align-self: center;
+  }
+
+  .coverage__zone-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .coverage__zone-label {
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--bordo);
+    margin-bottom: 18px;
+  }
+
+  .coverage__zone-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .coverage__zone-list--two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 24px;
+  }
+
+  .coverage__zone-list li {
+    position: relative;
+    padding: 10px 0 10px 16px;
+    border-bottom: 1px solid var(--gris-200);
+    color: var(--ink);
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  .coverage__zone-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 5px;
+    height: 5px;
+    border-radius: 999px;
+    background: var(--bordo);
+  }
+
+  .coverage__zone-list li.is-highlight {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 1.2rem;
+    letter-spacing: 0.04em;
+    color: var(--bordo);
+    text-transform: uppercase;
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+
+  .coverage__zone-list li.is-highlight::before {
+    width: 7px;
+    height: 7px;
+  }
+
+  /* Tablet */
+  @media (max-width: 1080px) {
+    .coverage__split {
       grid-template-columns: 1fr;
+    }
+
+    .coverage__map-card {
+      min-height: clamp(320px, 50vh, 420px);
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 720px) {
+    .coverage__base {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    .coverage__zone-list--two {
+      grid-template-columns: 1fr;
+    }
+
+    .coverage__zones {
+      gap: 28px;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .coverage__base {
+      padding: 18px 20px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .coverage__base-link svg {
+      transition: none;
     }
   }
 </style>

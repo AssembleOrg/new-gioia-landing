@@ -4,66 +4,98 @@ import { whatsappLink, site } from "../data/site";
 import camionFrontal from "../assets/images/camion-frontal.png";
 ---
 
-<section class="hero">
-  <div class="hero__bg" aria-hidden="true"></div>
+<section class="hero" data-hero>
+  <div class="hero__media" aria-hidden="true">
+    <Picture
+      src={camionFrontal}
+      alt=""
+      widths={[720, 1080, 1440, 1920]}
+      sizes="100vw"
+      formats={["avif", "webp"]}
+      quality={78}
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+      class="hero__img"
+    />
+    <div class="hero__overlay"></div>
+    <div class="hero__noise"></div>
+    <div class="hero__vignette"></div>
+  </div>
 
   <div class="container hero__inner">
     <div class="hero__content">
-      <span class="hero__eyebrow">Transporte Gioia e Hijos · Lanús</span>
-      <h1 class="hero__title">
-        Mudanzas <span class="hero__title--accent">rápidas</span> y guardamuebles seguros.
+      <span class="hero__eyebrow fade-up-init" data-anim="0">
+        Transporte Gioia e Hijos · Lanús
+      </span>
+
+      <h1 class="hero__title fade-up-init" data-anim="1">
+        Mudanzas
+        <span class="hero__title-accent">
+          rápidas
+          <svg class="hero__underline" viewBox="0 0 240 18" fill="none" aria-hidden="true" preserveAspectRatio="none">
+            <path d="M2 12 C 60 4, 130 4, 238 11" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <br />y guardamuebles seguros.
       </h1>
-      <p class="hero__lead">
+
+      <p class="hero__lead fade-up-init" data-anim="2">
         Más de una década moviendo familias y empresas por Buenos Aires y todas las provincias.
         Embalaje, traslado y depósito con el cuidado que tus cosas se merecen.
       </p>
 
-      <ul class="hero__pillars">
-        <li><span class="check">✓</span> Profesionalismo</li>
-        <li><span class="check">✓</span> Puntualidad</li>
-        <li><span class="check">✓</span> Seguridad</li>
-        <li><span class="check">✓</span> Asesoría sin cargo</li>
-      </ul>
-
-      <div class="hero__ctas">
-        <a class="btn btn-whatsapp" href={whatsappLink()} target="_blank" rel="noopener">
+      <div class="hero__ctas fade-up-init" data-anim="3">
+        <a class="btn btn-primary hero__cta-primary" href={whatsappLink()} target="_blank" rel="noopener">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path
-              d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26L2.5 19.51l3.654-1.317zm9.612-7.408c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.149-.174.198-.298.298-.496.099-.198.05-.372-.025-.521-.075-.149-.669-1.611-.916-2.207-.241-.579-.486-.5-.668-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413z"
-            ></path>
+            <path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26L2.5 19.51l3.654-1.317zm9.612-7.408c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.149-.174.198-.298.298-.496.099-.198.05-.372-.025-.521-.075-.149-.669-1.611-.916-2.207-.241-.579-.486-.5-.668-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413z"></path>
           </svg>
           Cotizar por WhatsApp
         </a>
-        <a class="btn btn-ghost" href="#servicios">Ver servicios</a>
+        <a class="hero__ghost-link" href="#servicios">
+          Ver servicios
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+            <path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
       </div>
 
-      <div class="hero__contact">
+      <div class="hero__contact fade-up-init" data-anim="4">
         <a href={`tel:${site.phoneIntl}`} class="hero__phone">
-          <span class="hero__phone-label">Teléfono</span>
+          <span class="hero__phone-label">Teléfono directo</span>
           <span class="hero__phone-number">{site.phoneDisplay}</span>
         </a>
         <span class="hero__sep" aria-hidden="true"></span>
-        <span class="hero__addr">{site.address.street}, {site.address.city}</span>
+        <span class="hero__addr">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M12 22s-7-7-7-12a7 7 0 1 1 14 0c0 5-7 12-7 12z" stroke-linejoin="round"/>
+            <circle cx="12" cy="10" r="2.5"/>
+          </svg>
+          {site.address.street}, {site.address.city}
+        </span>
       </div>
     </div>
 
-    <div class="hero__visual">
-      <div class="hero__img-wrap">
-        <Picture
-          src={camionFrontal}
-          alt="Camión de mudanzas Transporte Gioia e Hijos"
-          widths={[480, 720, 960, 1200]}
-          sizes="(max-width: 880px) 92vw, 480px"
-          formats={["avif", "webp"]}
-          quality={75}
-          loading="eager"
-          fetchpriority="high"
-          decoding="async"
-        />
-      </div>
-      <div class="hero__badge">
-        <strong>+500 Mudanzas</strong>
-        <span>realizadas con éxito</span>
+    <aside class="hero__badge fade-up-init" data-anim="5" aria-label="Métrica de mudanzas realizadas">
+      <div class="hero__badge-pulse" aria-hidden="true"></div>
+      <span class="hero__badge-num">+500</span>
+      <span class="hero__badge-label">Mudanzas realizadas con éxito</span>
+    </aside>
+  </div>
+
+  <div class="hero__trust" aria-label="Atributos de la empresa">
+    <div class="hero__trust-inner">
+      <div class="hero__trust-track">
+        <span>Profesionalismo</span>
+        <span>Puntualidad</span>
+        <span>Seguridad</span>
+        <span>Asesoría sin cargo</span>
+        <span>Lanús → Todo el país</span>
+        <span aria-hidden="true">Profesionalismo</span>
+        <span aria-hidden="true">Puntualidad</span>
+        <span aria-hidden="true">Seguridad</span>
+        <span aria-hidden="true">Asesoría sin cargo</span>
+        <span aria-hidden="true">Lanús → Todo el país</span>
       </div>
     </div>
   </div>
@@ -75,111 +107,189 @@ import camionFrontal from "../assets/images/camion-frontal.png";
     color: var(--white);
     overflow: hidden;
     isolation: isolate;
+    min-height: 100svh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    background: var(--ink-deep);
   }
 
-  .hero__bg {
+  .hero__media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .hero__media :global(picture),
+  .hero__media :global(picture > img) {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .hero__media :global(img) {
+    object-fit: cover;
+    object-position: 65% center;
+    filter: brightness(0.55) saturate(0.95);
+    transform: scale(1.08);
+    will-change: transform;
+  }
+
+  .hero__overlay {
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(900px 500px at 85% 10%, rgba(155, 42, 58, 0.55) 0%, rgba(155, 42, 58, 0) 60%),
-      radial-gradient(700px 600px at 0% 100%, rgba(122, 31, 44, 0.45) 0%, rgba(0, 0, 0, 0) 60%),
-      linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%);
-    z-index: -1;
+      radial-gradient(ellipse at 75% 35%, rgba(155, 42, 58, 0.55) 0%, rgba(155, 42, 58, 0) 55%),
+      radial-gradient(ellipse at 15% 90%, rgba(92, 22, 32, 0.5) 0%, rgba(0, 0, 0, 0) 60%),
+      linear-gradient(180deg, rgba(10, 10, 10, 0.55) 0%, rgba(10, 10, 10, 0.35) 35%, rgba(10, 10, 10, 0.92) 100%);
   }
 
-  .hero__bg::after {
-    content: "";
+  .hero__noise {
     position: absolute;
     inset: 0;
-    background-image:
-      linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-    background-size: 40px 40px;
-    mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 70%);
-    -webkit-mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 70%);
+    pointer-events: none;
+    opacity: 0.06;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  .hero__vignette {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.55) 100%);
   }
 
   .hero__inner {
+    position: relative;
+    z-index: 2;
+    flex: 1;
     display: grid;
-    grid-template-columns: 1.15fr 1fr;
-    gap: clamp(28px, 5vw, 64px);
-    align-items: center;
-    padding-block: clamp(70px, 10vw, 130px);
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: 1fr;
+    align-items: end;
+    padding-block: clamp(120px, 16vh, 180px) clamp(80px, 10vh, 130px);
+    gap: clamp(24px, 4vw, 48px);
+  }
+
+  .hero__content {
+    max-width: 760px;
   }
 
   .hero__eyebrow {
     display: inline-block;
     font-size: 0.78rem;
-    font-weight: 700;
+    font-weight: 600;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: #f0c2c8;
-    background: rgba(155, 42, 58, 0.22);
-    padding: 6px 14px;
-    border-radius: 999px;
-    margin-bottom: 22px;
-    border: 1px solid rgba(155, 42, 58, 0.45);
-  }
-
-  .hero__title {
-    font-size: clamp(2.6rem, 6.4vw, 5rem);
-    line-height: 0.95;
-    margin-bottom: 22px;
-  }
-
-  .hero__title--accent {
-    color: var(--bordo-light);
-  }
-
-  .hero__lead {
-    font-size: clamp(1rem, 1.3vw, 1.15rem);
-    color: var(--gris-300);
-    max-width: 56ch;
+    color: var(--gris-200);
     margin-bottom: 28px;
   }
 
-  .hero__pillars {
-    list-style: none;
-    margin: 0 0 32px;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, max-content));
-    gap: 10px 28px;
-    color: var(--gris-200);
-    font-weight: 500;
-  }
-
-  .hero__pillars li {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .check {
-    display: inline-grid;
-    place-items: center;
-    width: 22px;
-    height: 22px;
-    background: var(--bordo);
+  .hero__title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2.8rem, 7.2vw, 5.8rem);
+    line-height: 0.94;
+    letter-spacing: 0.01em;
     color: var(--white);
-    border-radius: 999px;
-    font-size: 0.75rem;
-    font-weight: 700;
+    margin: 0 0 28px;
+    text-transform: uppercase;
+  }
+
+  .hero__title-accent {
+    position: relative;
+    color: var(--white);
+    display: inline-block;
+    padding-bottom: 6px;
+  }
+
+  .hero__underline {
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 0.18em;
+    color: var(--bordo);
+    overflow: visible;
+  }
+
+  .hero__underline path {
+    stroke-dasharray: 260;
+    stroke-dashoffset: 260;
+    transition: stroke-dashoffset 1.1s var(--ease-out-expo) 0.7s;
+  }
+
+  .hero.is-loaded .hero__underline path {
+    stroke-dashoffset: 0;
+  }
+
+  .hero__lead {
+    font-size: clamp(1.02rem, 1.3vw, 1.18rem);
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.78);
+    max-width: 56ch;
+    margin: 0 0 36px;
   }
 
   .hero__ctas {
     display: flex;
     flex-wrap: wrap;
-    gap: 14px;
-    margin-bottom: 36px;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+
+  .hero__cta-primary {
+    padding: 16px 28px;
+    font-size: 1rem;
+  }
+
+  .hero__ghost-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--white);
+    font-weight: 600;
+    font-size: 0.96rem;
+    padding: 8px 0;
+    position: relative;
+    min-height: 44px;
+  }
+
+  .hero__ghost-link svg {
+    transition: transform 0.3s var(--ease-out-expo);
+  }
+
+  .hero__ghost-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 6px;
+    width: 100%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.4);
+    transform: scaleX(0.3);
+    transform-origin: left;
+    transition: transform 0.35s var(--ease-out-expo), background 0.2s ease;
+  }
+
+  .hero__ghost-link:hover::after {
+    transform: scaleX(1);
+    background: var(--white);
+  }
+
+  .hero__ghost-link:hover svg {
+    transform: translateX(4px);
   }
 
   .hero__contact {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 18px;
-    color: var(--gris-300);
+    gap: 22px;
+    color: rgba(255, 255, 255, 0.68);
     font-size: 0.92rem;
   }
 
@@ -187,106 +297,287 @@ import camionFrontal from "../assets/images/camion-frontal.png";
     display: flex;
     flex-direction: column;
     line-height: 1.1;
+    min-height: 44px;
+    justify-content: center;
   }
 
   .hero__phone-label {
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     text-transform: uppercase;
     letter-spacing: 0.18em;
-    color: var(--gris-500);
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 4px;
   }
 
   .hero__phone-number {
     font-family: var(--font-display);
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     color: var(--white);
     letter-spacing: 0.04em;
   }
 
   .hero__sep {
     width: 1px;
-    height: 28px;
-    background: rgba(255, 255, 255, 0.18);
+    height: 32px;
+    background: rgba(255, 255, 255, 0.2);
   }
 
-  .hero__visual {
-    position: relative;
+  .hero__addr {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
   }
 
-  .hero__img-wrap {
-    position: relative;
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    box-shadow: var(--shadow-lg);
-    background: transparent;
-    aspect-ratio: 1080 / 1350;
-  }
-
-  .hero__img-wrap :global(picture) {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
-
-  .hero__img-wrap :global(img) {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
+  /* Glass badge */
   .hero__badge {
-    position: absolute;
-    bottom: -18px;
-    left: -18px;
-    background: var(--white);
-    color: var(--ink);
-    padding: 16px 22px;
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-md);
+    position: relative;
+    align-self: end;
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(22px) saturate(180%);
+    -webkit-backdrop-filter: blur(22px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 22px;
+    padding: 28px 32px;
+    min-width: 240px;
     display: flex;
     flex-direction: column;
-    line-height: 1.2;
+    gap: 8px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.12);
   }
 
-  .hero__badge strong {
+  .hero__badge-pulse {
+    position: absolute;
+    top: 22px;
+    right: 24px;
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--bordo);
+    box-shadow: 0 0 0 0 rgba(122, 31, 44, 0.7);
+    animation: pulse 2.4s ease-out infinite;
+  }
+
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(122, 31, 44, 0.6); }
+    70% { box-shadow: 0 0 0 14px rgba(122, 31, 44, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(122, 31, 44, 0); }
+  }
+
+  .hero__badge-num {
     font-family: var(--font-display);
-    font-size: 1.6rem;
-    color: var(--bordo);
-    letter-spacing: 0.04em;
+    font-size: clamp(3rem, 5vw, 4rem);
+    line-height: 0.9;
+    color: var(--white);
+    letter-spacing: 0.02em;
   }
 
-  .hero__badge span {
-    font-size: 0.82rem;
-    color: var(--gris-700);
+  .hero__badge-label {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.72);
+    line-height: 1.4;
+    max-width: 180px;
   }
 
-  @media (max-width: 880px) {
+  /* Trust strip */
+  .hero__trust {
+    position: relative;
+    z-index: 2;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(10, 10, 10, 0.5);
+    backdrop-filter: blur(8px);
+  }
+
+  .hero__trust-inner {
+    width: 100%;
+    max-width: var(--container);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+    padding-block: 18px;
+    font-size: 0.74rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: rgba(255, 255, 255, 0.55);
+    overflow: hidden;
+    scrollbar-width: none;
+  }
+
+  .hero__trust-inner::-webkit-scrollbar { display: none; }
+
+  .hero__trust-track {
+    display: flex;
+    align-items: center;
+    gap: clamp(20px, 4vw, 40px);
+  }
+
+  .hero__trust-track > span {
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .hero__trust-track > span:not(:last-child)::after {
+    content: "";
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.3);
+    margin-left: clamp(20px, 4vw, 40px);
+    vertical-align: middle;
+  }
+
+  /* Hide duplicate set on desktop — only used for mobile marquee loop */
+  @media (min-width: 721px) {
+    .hero__trust-track > [aria-hidden="true"] {
+      display: none;
+    }
+  }
+
+  /* Mobile: full-bleed marquee */
+  @media (max-width: 720px) {
+    .hero__trust-inner {
+      max-width: none;
+      padding-inline: 0;
+    }
+    .hero__trust-track {
+      width: max-content;
+      animation: trust-marquee 28s linear infinite;
+      padding-left: var(--gutter);
+    }
+    .hero__trust:hover .hero__trust-track,
+    .hero__trust:focus-within .hero__trust-track {
+      animation-play-state: paused;
+    }
+  }
+
+  @keyframes trust-marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__trust-track {
+      animation: none;
+    }
+    .hero__trust-track > [aria-hidden="true"] {
+      display: none;
+    }
+  }
+
+  /* Tablet */
+  @media (max-width: 920px) {
     .hero__inner {
       grid-template-columns: 1fr;
+      grid-template-rows: auto auto;
+      align-items: start;
+      padding-block: clamp(110px, 14vh, 150px) clamp(60px, 8vh, 90px);
     }
-    .hero__visual {
-      order: -1;
-      max-width: 460px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+
+    .hero__badge {
+      align-self: start;
+      justify-self: start;
+      min-width: 220px;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 720px) {
+    .hero__media :global(img) {
+      object-position: 60% center;
+      filter: brightness(0.45) saturate(0.95);
+    }
+
+    .hero__title {
+      font-size: clamp(2.4rem, 9vw, 3.6rem);
+    }
+
+    .hero__contact {
       gap: 16px;
     }
-    .hero__img-wrap {
-      width: 100%;
+
+    .hero__sep {
+      display: none;
     }
+
     .hero__badge {
-      position: static;
+      width: 100%;
+      min-width: 0;
+      padding: 22px 24px;
+    }
+
+    .hero__badge-num {
+      font-size: 2.6rem;
     }
   }
 
   @media (max-width: 520px) {
-    .hero__badge {
-      padding: 12px 18px;
+    .hero__inner {
+      padding-block: clamp(100px, 12vh, 130px) 60px;
     }
-    .hero__badge strong {
-      font-size: 1.4rem;
+
+    .hero__ctas {
+      gap: 16px;
+    }
+
+    .hero__cta-primary {
+      width: 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__media :global(img) {
+      transform: none;
+    }
+
+    .hero__underline path {
+      stroke-dashoffset: 0;
+      transition: none;
+    }
+
+    .hero__badge-pulse {
+      animation: none;
     }
   }
 </style>
+
+<script>
+  import { animate, scroll as motionScroll } from "motion";
+
+  const hero = document.querySelector<HTMLElement>('[data-hero]');
+  if (hero) {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Stagger entrance
+    if (!reduce) {
+      const items = hero.querySelectorAll<HTMLElement>('[data-anim]');
+      items.forEach((el) => {
+        const order = Number(el.dataset.anim ?? 0);
+        animate(
+          el,
+          { opacity: [0, 1], transform: ['translateY(28px)', 'translateY(0)'] },
+          { duration: 0.85, delay: 0.08 * order + 0.05, easing: [0.16, 1, 0.3, 1] }
+        );
+      });
+
+      // Trigger underline animation
+      requestAnimationFrame(() => hero.classList.add('is-loaded'));
+
+      // Parallax (only desktop)
+      if (window.matchMedia('(min-width: 721px)').matches) {
+        const img = hero.querySelector<HTMLElement>('.hero__media img');
+        if (img) {
+          motionScroll(
+            (progress: number) => {
+              const y = progress * 80;
+              const scale = 1.08 - progress * 0.06;
+              img.style.transform = `translateY(${y}px) scale(${Math.max(scale, 1.02)})`;
+            },
+            { target: hero, offset: ['start start', 'end start'] as any }
+          );
+        }
+      }
+    } else {
+      hero.classList.add('is-loaded');
+    }
+  }
+</script>

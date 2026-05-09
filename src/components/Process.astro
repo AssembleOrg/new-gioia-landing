@@ -23,33 +23,42 @@ const steps = [
 ];
 ---
 
-<section id="proceso" class="process section">
+<section id="proceso" class="process" data-process>
   <div class="container">
     <header class="process__head">
-      <span class="eyebrow">Cómo trabajamos</span>
-      <h2>Cuatro pasos. Cero sorpresas.</h2>
+      <span class="eyebrow eyebrow--light">Cómo trabajamos</span>
+
+      <h2 class="process__title">Cuatro pasos. Cero sorpresas.</h2>
     </header>
 
-    <ol class="process__list">
-      {
-        steps.map((s) => (
-          <li class="step">
+    <ol class="process__list" aria-label="Pasos del proceso de mudanza">
+      <svg class="process__connector" viewBox="0 0 1000 4" preserveAspectRatio="none" aria-hidden="true">
+        <line x1="0" y1="2" x2="1000" y2="2" stroke="rgba(255,255,255,.15)" stroke-width="2" stroke-dasharray="6 8" />
+        <line class="process__connector-fill" x1="0" y1="2" x2="1000" y2="2" stroke="var(--bordo)" stroke-width="2" />
+      </svg>
+
+      {steps.map((s) => (
+        <li class="step" data-step>
+          <div class="step__marker" aria-hidden="true">
+            <span class="step__dot"></span>
             <span class="step__num">{s.n}</span>
-            <h3>{s.title}</h3>
-            <p>{s.desc}</p>
-          </li>
-        ))
-      }
+          </div>
+          <h3 class="step__title">{s.title}</h3>
+          <p class="step__desc">{s.desc}</p>
+        </li>
+      ))}
     </ol>
   </div>
 </section>
 
 <style>
   .process {
-    background: var(--ink);
+    background: var(--ink-deep);
     color: var(--white);
+    padding-block: clamp(80px, 12vw, 130px);
     position: relative;
     overflow: hidden;
+    isolation: isolate;
   }
 
   .process::before {
@@ -57,14 +66,25 @@ const steps = [
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(700px 400px at 90% 0%, rgba(155, 42, 58, 0.25) 0%, rgba(0, 0, 0, 0) 60%);
+      radial-gradient(800px 500px at 100% 0%, rgba(155, 42, 58, 0.18) 0%, transparent 60%),
+      radial-gradient(600px 400px at 0% 100%, rgba(122, 31, 44, 0.12) 0%, transparent 60%);
     pointer-events: none;
+    z-index: 0;
+  }
+
+  .process > .container {
+    position: relative;
+    z-index: 1;
   }
 
   .process__head {
-    max-width: 600px;
-    margin-bottom: 48px;
-    position: relative;
+    max-width: 640px;
+    margin-bottom: clamp(56px, 8vw, 88px);
+  }
+
+  .process__title {
+    color: var(--white);
+    font-size: clamp(2rem, 4.6vw, 3.4rem);
   }
 
   .process__list {
@@ -72,43 +92,191 @@ const steps = [
     margin: 0;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 28px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
     position: relative;
   }
 
+  /* Connector line (desktop only) */
+  .process__connector {
+    position: absolute;
+    top: 26px;
+    left: 8%;
+    width: 84%;
+    height: 4px;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .process__connector-fill {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    transition: stroke-dashoffset 1.6s var(--ease-out-expo);
+  }
+
+  .process.is-visible .process__connector-fill {
+    stroke-dashoffset: 0;
+  }
+
   .step {
-    padding: 28px 24px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: var(--radius-md);
-    backdrop-filter: blur(4px);
-    transition: border-color 0.2s ease, transform 0.2s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
   }
 
-  .step:hover {
-    border-color: var(--bordo-light);
-    transform: translateY(-3px);
-  }
-
-  .step__num {
-    display: inline-block;
-    font-family: var(--font-display);
-    font-size: 2.4rem;
-    color: var(--bordo-light);
-    letter-spacing: 0.04em;
-    line-height: 1;
-    margin-bottom: 14px;
-  }
-
-  .step h3 {
-    color: var(--white);
+  .step__marker {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
     margin-bottom: 8px;
   }
 
-  .step p {
-    color: var(--gris-300);
+  .step__dot {
+    width: 52px;
+    height: 52px;
+    border-radius: 999px;
+    background: var(--ink-deep);
+    border: 2px solid var(--bordo);
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .step__dot::after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--white);
+    transition: transform 0.4s var(--ease-out-expo);
+  }
+
+  .step:hover .step__dot {
+    background: var(--bordo);
+    box-shadow: 0 0 0 6px rgba(155, 42, 58, 0.18);
+  }
+
+  .step:hover .step__dot::after {
+    transform: scale(1.4);
+  }
+
+  .step__num {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 4vw, 3.4rem);
+    color: rgba(255, 255, 255, 0.12);
+    letter-spacing: 0.04em;
+    line-height: 1;
+    transition: color 0.3s ease;
+  }
+
+  .step:hover .step__num {
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .step__title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    color: var(--white);
+    font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  .step__desc {
+    color: rgba(255, 255, 255, 0.68);
     font-size: 0.95rem;
+    line-height: 1.55;
     margin: 0;
   }
+
+  /* Tablet */
+  @media (max-width: 1080px) {
+    .process__list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 36px 24px;
+    }
+
+    .process__connector {
+      display: none;
+    }
+  }
+
+  /* Mobile: vertical stack with left line */
+  @media (max-width: 720px) {
+    .process__list {
+      grid-template-columns: 1fr;
+      gap: 0;
+      padding-left: 0;
+    }
+
+    .process__connector {
+      display: none;
+    }
+
+    .step {
+      padding: 22px 0 22px 24px;
+      border-left: 2px dashed rgba(155, 42, 58, 0.35);
+      margin-left: 26px;
+      gap: 10px;
+    }
+
+    .step:first-child {
+      padding-top: 0;
+    }
+
+    .step__marker {
+      margin-left: -50px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .process__connector-fill,
+    .step__dot,
+    .step__dot::after,
+    .step__num {
+      transition: none;
+    }
+  }
 </style>
+
+<script>
+  import { animate, inView } from "motion";
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const root = document.querySelector<HTMLElement>('[data-process]');
+
+  if (root) {
+    if (!reduce) {
+      const head = root.querySelector<HTMLElement>('.process__head');
+      const steps = root.querySelectorAll<HTMLElement>('[data-step]');
+
+      if (head) {
+        head.style.opacity = '0';
+        head.style.transform = 'translateY(20px)';
+        inView(head, () => {
+          animate(head, { opacity: [0, 1], transform: ['translateY(20px)', 'translateY(0)'] }, { duration: 0.8, easing: [0.16, 1, 0.3, 1] });
+        }, { amount: 0.4 });
+      }
+
+      steps.forEach((el, i) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(24px)';
+        inView(el, () => {
+          animate(el, { opacity: [0, 1], transform: ['translateY(24px)', 'translateY(0)'] }, { duration: 0.7, delay: i * 0.12, easing: [0.16, 1, 0.3, 1] });
+        }, { amount: 0.3 });
+      });
+
+      inView(root, () => {
+        root.classList.add('is-visible');
+      }, { amount: 0.3 });
+    } else {
+      root.classList.add('is-visible');
+    }
+  }
+</script>

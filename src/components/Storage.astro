@@ -2,41 +2,56 @@
 import { Image } from "astro:assets";
 import { whatsappLink } from "../data/site";
 import guardamueblesBlanco from "../assets/images/guardamuebles-blanco.png";
+
+const features = [
+  "Boxes individuales con acceso coordinado",
+  "Depósito vigilado las 24 horas",
+  "Inventario detallado al ingreso",
+  "Embalaje y traslado al depósito incluidos",
+];
 ---
 
-<section id="guardamuebles" class="storage section">
+<section id="guardamuebles" class="storage" data-storage>
   <div class="container storage__inner">
-    <div class="storage__visual">
-      <Image
-        src={guardamueblesBlanco}
-        alt="Boxes individuales del servicio de guardamuebles"
-        widths={[480, 720, 960]}
-        sizes="(max-width: 880px) 92vw, 480px"
-        format="webp"
-        quality={80}
-        loading="lazy"
-        decoding="async"
-      />
-      <div class="storage__tag">Servicio de guardamuebles</div>
+    <div class="storage__visual" data-visual>
+      <div class="storage__media">
+        <Image
+          src={guardamueblesBlanco}
+          alt="Boxes individuales del servicio de guardamuebles"
+          widths={[480, 720, 960, 1200]}
+          sizes="(max-width: 880px) 92vw, 540px"
+          format="webp"
+          quality={82}
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
     </div>
 
-    <div class="storage__content">
+    <div class="storage__content" data-content>
       <span class="eyebrow">Guardamuebles</span>
-      <h2>¿Tu mudanza no coincide con los tiempos?</h2>
+      <h2 class="storage__title">¿Tu mudanza no coincide con los tiempos?</h2>
       <p class="storage__lead">
         Guardamos tus muebles, cajas y pertenencias el tiempo que necesites en un depósito seguro,
         seco y vigilado. Ideal para mudanzas escalonadas, refacciones o estadías temporales.
       </p>
 
       <ul class="storage__features">
-        <li><span class="dot"></span> Boxes individuales con acceso coordinado</li>
-        <li><span class="dot"></span> Depósito vigilado las 24 horas</li>
-        <li><span class="dot"></span> Inventario detallado al ingreso</li>
-        <li><span class="dot"></span> Embalaje y traslado al depósito incluidos</li>
+        {features.map((f) => (
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <path d="M5 12.5l4.5 4.5L19 7.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            {f}
+          </li>
+        ))}
       </ul>
 
-      <a class="btn btn-primary" href={whatsappLink("Hola, me interesa el servicio de guardamuebles. ¿Me pasan info?")} target="_blank" rel="noopener">
+      <a class="btn btn-primary storage__cta" href={whatsappLink("Hola, me interesa el servicio de guardamuebles. ¿Me pasan info?")} target="_blank" rel="noopener">
         Consultar disponibilidad
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+          <path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </a>
     </div>
   </div>
@@ -44,87 +59,260 @@ import guardamueblesBlanco from "../assets/images/guardamuebles-blanco.png";
 
 <style>
   .storage {
-    background: linear-gradient(180deg, var(--gris-100) 0%, var(--white) 100%);
+    background: var(--white);
+    padding-block: clamp(80px, 12vw, 130px);
   }
 
   .storage__inner {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: clamp(28px, 5vw, 64px);
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    gap: clamp(32px, 6vw, 80px);
     align-items: center;
   }
 
+  /* Visual side */
   .storage__visual {
     position: relative;
+    aspect-ratio: 4 / 5;
+    max-height: 640px;
+  }
+
+  .storage__media {
+    position: relative;
+    width: 100%;
+    height: 100%;
     border-radius: var(--radius-lg);
     overflow: hidden;
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-lg);
+    background: var(--gris-100);
   }
 
-  .storage__visual :global(picture) {
+  .storage__media :global(picture),
+  .storage__media :global(img) {
+    width: 100%;
+    height: 100%;
     display: block;
-    width: 100%;
+    object-fit: cover;
   }
 
-  .storage__visual :global(img) {
-    width: 100%;
-    height: auto;
-  }
-
-  .storage__tag {
+  .storage__veil {
     position: absolute;
-    bottom: 18px;
-    left: 18px;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.35) 100%);
+    pointer-events: none;
+  }
+
+  /* Floating chips */
+  .storage__overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .storage__chip {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--ink);
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    pointer-events: auto;
+    opacity: 0;
+    transform: translateY(8px) scale(0.96);
+    transition: opacity 0.6s var(--ease-out-expo), transform 0.6s var(--ease-out-expo);
+    transition-delay: calc(var(--i, 0) * 120ms + 200ms);
+  }
+
+  .storage.is-visible .storage__chip {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .storage__chip-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--bordo);
+  }
+
+  .storage__chip:nth-child(1) {
+    top: 24px;
+    left: 16px;
+  }
+
+  .storage__chip:nth-child(2) {
+    top: 38%;
+    right: 16px;
+  }
+
+  .storage__chip:nth-child(3) {
+    bottom: 90px;
+    left: 24px;
+  }
+
+  /* Corner badge */
+  .storage__corner {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
     background: var(--bordo);
     color: var(--white);
-    padding: 10px 18px;
-    border-radius: 999px;
+    padding: 14px 20px;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+    gap: 2px;
+  }
+
+  .storage__corner span {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--gris-200);
     font-weight: 600;
-    font-size: 0.85rem;
+  }
+
+  .storage__corner strong {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
     letter-spacing: 0.04em;
   }
 
-  .storage__content h2 {
+  /* Content side */
+  .storage__title {
     color: var(--ink);
+    font-size: clamp(1.9rem, 4vw, 2.8rem);
+    margin-bottom: 20px;
   }
 
   .storage__lead {
     color: var(--gris-700);
-    font-size: 1.05rem;
-    margin-bottom: 24px;
+    font-size: clamp(1rem, 1.2vw, 1.1rem);
+    line-height: 1.6;
+    margin-bottom: 28px;
+    max-width: 52ch;
   }
 
   .storage__features {
     list-style: none;
-    margin: 0 0 32px;
+    margin: 0 0 36px;
     padding: 0;
     display: grid;
-    gap: 12px;
-    color: var(--ink);
-    font-weight: 500;
+    gap: 14px;
   }
 
   .storage__features li {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 12px;
+    color: var(--ink);
+    font-weight: 500;
+    font-size: 0.96rem;
+    line-height: 1.45;
   }
 
-  .dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 999px;
-    background: var(--bordo);
+  .storage__features svg {
+    color: var(--bordo);
     flex-shrink: 0;
+    margin-top: 2px;
   }
 
+  .storage__cta {
+    align-self: flex-start;
+  }
+
+  .storage__cta svg {
+    transition: transform 0.3s var(--ease-out-expo);
+  }
+
+  .storage__cta:hover svg {
+    transform: translateX(4px);
+  }
+
+  /* Mobile */
   @media (max-width: 880px) {
     .storage__inner {
       grid-template-columns: 1fr;
     }
+
     .storage__visual {
-      max-width: 460px;
+      max-width: 480px;
       margin: 0 auto;
+      aspect-ratio: 4 / 5;
+    }
+
+    .storage__chip:nth-child(1) {
+      top: 16px;
+      left: 8px;
+    }
+
+    .storage__chip:nth-child(2) {
+      right: 8px;
+    }
+
+    .storage__chip:nth-child(3) {
+      left: 12px;
+      bottom: 80px;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .storage__chip {
+      font-size: 0.74rem;
+      padding: 8px 12px;
+    }
+
+    .storage__corner {
+      padding: 10px 14px;
+    }
+
+    .storage__corner strong {
+      font-size: 1.15rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .storage__chip {
+      transition: none;
+      opacity: 1;
+      transform: none;
     }
   }
 </style>
+
+<script>
+  import { animate, inView } from "motion";
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const root = document.querySelector<HTMLElement>('[data-storage]');
+  if (root) {
+    inView(root, () => root.classList.add('is-visible'), { amount: 0.25 });
+
+    if (!reduce) {
+      const visual = root.querySelector<HTMLElement>('[data-visual]');
+      const content = root.querySelector<HTMLElement>('[data-content]');
+
+      [visual, content].forEach((el, i) => {
+        if (!el) return;
+        el.style.opacity = '0';
+        el.style.transform = i === 0 ? 'translateX(-24px)' : 'translateX(24px)';
+        inView(el, () => {
+          animate(el, {
+            opacity: [0, 1],
+            transform: [i === 0 ? 'translateX(-24px)' : 'translateX(24px)', 'translateX(0)'],
+          }, { duration: 0.85, easing: [0.16, 1, 0.3, 1] });
+        }, { amount: 0.2 });
+      });
+    }
+  }
+</script>
