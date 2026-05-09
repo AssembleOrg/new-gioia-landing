@@ -1,0 +1,334 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import { site, whatsappLink } from "../data/site";
+import guardamueblesAzul from "../assets/images/guardamuebles-azul.png";
+import guardamueblesBlanco from "../assets/images/guardamuebles-blanco.png";
+
+const title = `Guardamuebles en Lanús — Depósito de muebles seguro y vigilado | ${site.shortName}`;
+const description =
+  "Servicio de guardamuebles en Lanús con boxes individuales, depósito vigilado las 24 hs e inventario detallado. Ideal para mudanzas escalonadas, refacciones o estadías temporales. Consultá disponibilidad por WhatsApp.";
+const keywords =
+  "guardamuebles Lanús, depósito de muebles Lanús, guardamuebles Buenos Aires, alquiler de bauleras, guardamuebles GBA, depósito vigilado Lanús";
+const path = "/guardamuebles-lanus";
+
+const casos = [
+  {
+    titulo: "Refacciones en tu casa",
+    desc: "Mientras pintan, hacen pisos o refaccionan, los muebles quedan a salvo en nuestro depósito. Después los devolvemos en perfecto estado.",
+  },
+  {
+    titulo: "Mudanzas escalonadas",
+    desc: "Cuando la fecha de salida no coincide con la de entrada al nuevo lugar, guardamos todo el tiempo intermedio.",
+  },
+  {
+    titulo: "Estadía temporal en el exterior",
+    desc: "Si te vas un tiempo del país, dejás todo guardado con inventario y lo recuperás cuando volvés.",
+  },
+  {
+    titulo: "Empresas con stock o archivo",
+    desc: "Espacio para mobiliario de oficina, archivo muerto o stock que rota. Acceso coordinado en horario laboral.",
+  },
+  {
+    titulo: "Heredados o sucesiones",
+    desc: "Cuando hay muebles de una herencia que todavía no se distribuyen, los guardamos hasta que se decide qué hacer.",
+  },
+  {
+    titulo: "Cuartos chicos sin lugar",
+    desc: "Si te mudás a un departamento más chico y no querés desprenderte de cosas, te guardamos lo que no entra.",
+  },
+];
+
+const features = [
+  {
+    titulo: "Boxes individuales",
+    desc: "Cada cliente tiene su propio espacio cerrado. Tus cosas no se mezclan con las de otros ni quedan apiladas en un depósito común.",
+  },
+  {
+    titulo: "Vigilancia 24 horas",
+    desc: "Depósito monitoreado todo el día, todos los días. Acceso restringido y registrado.",
+  },
+  {
+    titulo: "Inventario detallado",
+    desc: "Al ingresar tus pertenencias hacemos un listado completo con fotos. Cuando las retirás, comparamos contra el inventario.",
+  },
+  {
+    titulo: "Embalaje y traslado incluido",
+    desc: "Si nos contratás también la mudanza, embalaje y traslado al depósito quedan incluidos. No tenés que coordinar dos servicios distintos.",
+  },
+  {
+    titulo: "Tiempo flexible",
+    desc: "Podés guardarlo una semana, un mes o un año. Sin contratos rígidos, pagás por lo que usás.",
+  },
+  {
+    titulo: "Acceso coordinado",
+    desc: "Avisás con un día de anticipación y te dejamos retirar o agregar cosas en horario operativo.",
+  },
+];
+
+const incluye = [
+  "Espacio individual cerrado, no depósito común",
+  "Inventario al ingreso con fotos y planilla firmada",
+  "Vigilancia 24 hs y monitoreo del predio",
+  "Depósito seco, ventilado y libre de humedad",
+  "Sin contrato mínimo: pagás por mes que usás",
+  "Devolución coordinada con 24 hs de aviso",
+];
+
+const faqs = [
+  {
+    q: "¿Cuánto cuesta el guardamuebles en Lanús?",
+    a: "El costo depende del volumen que necesites guardar (medido en m³) y del tiempo. Cuanto más grande el box y más prolongada la estadía, mayor el monto mensual. Para una mudanza promedio de un departamento de 2 ambientes el costo es accesible y siempre te lo pasamos cerrado por escrito antes de aceptar.",
+  },
+  {
+    q: "¿Hay un tiempo mínimo de guardado?",
+    a: "No tenemos contrato mínimo. Algunos clientes guardan una semana porque les coincidió la fecha de mudanza, otros guardan dos años porque están viviendo en el exterior. Pagás por mes calendario y avisás cuando querés retirar.",
+  },
+  {
+    q: "¿Puedo retirar solo algunas cosas y dejar el resto?",
+    a: "Sí, y lo hacemos seguido. Avisás con un día de anticipación, vamos al depósito juntos, retirás lo que necesitás y actualizamos el inventario. El resto sigue guardado.",
+  },
+  {
+    q: "¿Cómo trasladan los muebles al depósito?",
+    a: "Si contratás también la mudanza, vamos a tu casa con materiales, embalamos lo delicado, cargamos y trasladamos directo al depósito. Si querés que solo guardemos pero el traslado lo hacés vos, también es posible — coordinamos la recepción en el depósito.",
+  },
+  {
+    q: "¿Qué pasa con la humedad y los hongos?",
+    a: "El depósito es seco y ventilado, condiciones específicas para mantener muebles de madera, ropa y objetos sensibles. Tenemos años guardando muebles sin incidentes y los entregamos en el mismo estado en que ingresaron.",
+  },
+  {
+    q: "¿Tienen seguro sobre las cosas guardadas?",
+    a: "Las pertenencias en el depósito están cubiertas por nuestro seguro de responsabilidad civil. Para objetos de muy alto valor (joyas, electrónica de gama alta, obras de arte) recomendamos que los declares por separado y, si corresponde, contratar cobertura adicional específica.",
+  },
+];
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: "Guardamuebles",
+  name: "Guardamuebles en Lanús — Transporte Gioia e Hijos",
+  description,
+  provider: {
+    "@type": "MovingCompany",
+    name: site.name,
+    url: site.url,
+    telephone: site.phoneIntl,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: site.address.street,
+      addressLocality: site.address.city,
+      addressRegion: site.address.region,
+      addressCountry: "AR",
+      postalCode: site.address.postalCode,
+    },
+  },
+  areaServed: [
+    { "@type": "City", name: "Lanús" },
+    { "@type": "AdministrativeArea", name: "Gran Buenos Aires" },
+    { "@type": "City", name: "Ciudad Autónoma de Buenos Aires" },
+  ],
+  url: new URL(path, site.url).toString(),
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Inicio", item: site.url },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Guardamuebles en Lanús",
+      item: new URL(path, site.url).toString(),
+    },
+  ],
+};
+
+const waMsg = "Hola Transporte Gioia, quisiera consultar disponibilidad y precio del guardamuebles.";
+---
+
+<Layout
+  title={title}
+  description={description}
+  keywords={keywords}
+  path={path}
+  image={guardamueblesAzul}
+  extraSchema={[serviceSchema, faqSchema, breadcrumbSchema]}
+>
+  <section class="page-hero">
+    <div class="page-hero__media" aria-hidden="true">
+      <Image
+        src={guardamueblesAzul}
+        alt=""
+        widths={[720, 1080, 1440]}
+        sizes="100vw"
+        formats={["avif", "webp"]}
+        quality={75}
+        loading="eager"
+        fetchpriority="high"
+      />
+      <div class="page-hero__overlay"></div>
+    </div>
+    <div class="container page-hero__inner">
+      <nav class="breadcrumbs" aria-label="Ruta de navegación">
+        <a href="/">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <span aria-current="page">Guardamuebles en Lanús</span>
+      </nav>
+      <span class="eyebrow eyebrow--light">Depósito propio</span>
+      <h1 class="page-hero__title">Guardamuebles en Lanús con boxes individuales y vigilancia las 24 horas.</h1>
+      <p class="page-hero__lead">
+        Depósito propio en Lanús para guardar tus muebles, cajas y pertenencias el tiempo que
+        necesites. Cada cliente tiene su box cerrado con inventario detallado y acceso coordinado.
+      </p>
+      <div class="page-hero__ctas">
+        <a class="btn btn-primary" href={whatsappLink(waMsg)} target="_blank" rel="noopener">
+          Consultar disponibilidad
+        </a>
+        <a class="btn btn-ghost" href={`tel:${site.phoneIntl}`}>Llamar al {site.phoneDisplay}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section content-section--light">
+    <div class="container">
+      <header class="content-section__head">
+        <span class="eyebrow">Cuándo conviene</span>
+        <h2>Casos donde guardar muebles es la mejor opción.</h2>
+      </header>
+      <div class="content-section__copy">
+        <p>
+          El servicio de guardamuebles no es solo para mudanzas grandes. Mucha gente lo usa para
+          situaciones puntuales en las que necesita liberar espacio temporalmente sin tomar
+          decisiones apuradas: refacciones, viajes largos, períodos de transición. Lo importante es
+          que tus cosas queden bien resguardadas y que puedas recuperarlas cuando las necesites,
+          en el mismo estado en que las dejaste.
+        </p>
+        <p>
+          Nuestro depósito está en Lanús, a minutos de la base operativa. Eso simplifica todo: si
+          también nos contratás la mudanza, embalamos en tu casa y trasladamos directo al depósito
+          en una sola jornada, sin intermediarios. Y cuando llega el momento de devolverte las
+          cosas, salimos del mismo lugar.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section content-section--white">
+    <div class="container split">
+      <div class="split__media">
+        <Image
+          src={guardamueblesBlanco}
+          alt="Boxes individuales del depósito de guardamuebles en Lanús"
+          widths={[480, 720, 960]}
+          sizes="(max-width: 880px) 92vw, 540px"
+          format="webp"
+          quality={80}
+          loading="lazy"
+        />
+      </div>
+      <div class="split__content">
+        <span class="eyebrow">Características del depósito</span>
+        <h2>Lo que diferencia nuestro guardamuebles.</h2>
+        <p>
+          No es un depósito común donde todo termina apilado. Cada cliente tiene su espacio y su
+          inventario propios.
+        </p>
+        <ul class="check-list">
+          {incluye.map((item) => (
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path d="M5 12.5l4.5 4.5L19 7.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              {item}
+            </li>
+          ))}
+        </ul>
+        <a class="btn btn-primary" href={whatsappLink(waMsg)} target="_blank" rel="noopener">
+          Quiero cotizar el servicio
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section content-section--light">
+    <div class="container">
+      <header class="content-section__head">
+        <span class="eyebrow">Quién lo usa</span>
+        <h2>Seis situaciones típicas para usar guardamuebles.</h2>
+        <p class="content-section__intro">
+          La mayoría de la gente no lo necesita por meses ni años — son situaciones puntuales que se
+          resuelven mejor con un espacio temporal seguro.
+        </p>
+      </header>
+      <div class="types-grid">
+        {casos.map((c) => (
+          <article class="type-card">
+            <h3 class="type-card__title">{c.titulo}</h3>
+            <p class="type-card__desc">{c.desc}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section content-section--dark">
+    <div class="container">
+      <header class="content-section__head">
+        <span class="eyebrow eyebrow--light">Cómo funciona</span>
+        <h2>Seis features que hacen al servicio.</h2>
+      </header>
+      <ul class="zones-grid">
+        {features.map((f) => (
+          <li class="zone-card">
+            <h3 class="zone-card__title">{f.titulo}</h3>
+            <p class="zone-card__desc">{f.desc}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="content-section content-section--white">
+    <div class="container faq-block">
+      <header class="content-section__head">
+        <span class="eyebrow">Preguntas frecuentes</span>
+        <h2>Lo que más nos preguntan sobre guardamuebles.</h2>
+      </header>
+      <div class="faq-list">
+        {faqs.map((f, i) => (
+          <details class="faq-item" open={i === 0}>
+            <summary>
+              <span>{f.q}</span>
+              <span class="faq-plus" aria-hidden="true"></span>
+            </summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="page-cta">
+    <div class="container page-cta__inner">
+      <h2>¿Necesitás guardar tus cosas un tiempo?</h2>
+      <p>Te pasamos disponibilidad y precio en el día. Sin contratos rígidos.</p>
+      <div class="page-cta__actions">
+        <a class="btn btn-whatsapp" href={whatsappLink(waMsg)} target="_blank" rel="noopener">
+          Consultar por WhatsApp
+        </a>
+        <a class="btn btn-ghost" href={`tel:${site.phoneIntl}`}>Llamar al {site.phoneDisplay}</a>
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,308 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import { site, whatsappLink } from "../data/site";
+import camionFrontal from "../assets/images/camion-frontal.png";
+import empleadosCajas from "../assets/images/empleados-cajas.png";
+
+const title = `Mudanzas en Lanús — Empresa de mudanzas con base local | ${site.shortName}`;
+const description =
+  "Empresa de mudanzas en Lanús con más de una década de experiencia. Mudanzas de departamentos, casas, PHs y oficinas en Lanús Este, Oeste, Gerli, Remedios de Escalada y Valentín Alsina. Cotización gratis por WhatsApp.";
+const keywords =
+  "mudanzas Lanús, empresa de mudanzas Lanús, fletes Lanús, mudanzas en Lanús precio, mudanzas Lanús Este, mudanzas Lanús Oeste, mudanzas Gerli, mudanzas Remedios de Escalada";
+const path = "/mudanzas-lanus";
+
+const subzones = [
+  { name: "Lanús Este", desc: "Zona céntrica, edificios y comercios sobre Av. 9 de Julio e H. Yrigoyen." },
+  { name: "Lanús Oeste", desc: "Casas, PHs y barrios residenciales con accesos por Av. Pte. Perón." },
+  { name: "Gerli", desc: "Mudanzas frecuentes desde y hacia el barrio de Gerli, sobre todo PHs y casas." },
+  { name: "Remedios de Escalada", desc: "Zona universitaria con mudanzas estudiantiles y traslados a CABA." },
+  { name: "Monte Chingolo", desc: "Operativos coordinados con tiempos flexibles según horario barrial." },
+  { name: "Valentín Alsina", desc: "Cobertura completa para mudanzas residenciales y de pequeños comercios." },
+];
+
+const tipos = [
+  {
+    titulo: "Mudanzas de departamentos",
+    desc: "Trabajamos con encargados de edificio, reservamos ascensor de servicio y resolvemos accesos por escalera cuando hace falta.",
+  },
+  {
+    titulo: "Mudanzas de casas y PHs",
+    desc: "Casas con mucho mobiliario, PHs en pasillo, escaleras y patios complicados. Lo vemos antes para no improvisar.",
+  },
+  {
+    titulo: "Mudanzas de oficinas y locales",
+    desc: "Coordinamos fuera de horario operativo para que no pierdas un día de trabajo. Embalaje de electrónica y archivo.",
+  },
+  {
+    titulo: "Mudanzas estudiantiles y monoambientes",
+    desc: "Para mudanzas chicas tenemos camionetas más ágiles y costos ajustados al volumen real.",
+  },
+];
+
+const incluye = [
+  "Visita previa o videollamada para cotizar sin compromiso",
+  "Camión propio adaptado al volumen de tu mudanza",
+  "Embalaje profesional con mantas acolchadas y cinta",
+  "Personal capacitado y permanente, no contratistas eventuales",
+  "Carga, traslado, descarga y armado en destino",
+  "Cobertura por la mercadería durante el traslado",
+];
+
+const faqs = [
+  {
+    q: "¿Cuánto cuesta una mudanza en Lanús?",
+    a: "El precio depende del volumen (cuántos m³ tiene tu mudanza), si necesitás embalaje, si hay escaleras o ascensor, y la distancia entre origen y destino. Para una mudanza local en Lanús suele ser más económico que un traslado a CABA. Te pasamos un presupuesto cerrado después de la visita o videollamada inicial.",
+  },
+  {
+    q: "¿Cuánto tarda una mudanza dentro de Lanús?",
+    a: "Una mudanza local de un departamento o PH chico se hace en una jornada completa (entre 4 y 8 horas según volumen y accesos). Para casas grandes coordinamos un día específico y avisamos con anticipación.",
+  },
+  {
+    q: "¿Hacen mudanzas desde Lanús a otras zonas del GBA o a CABA?",
+    a: "Sí, todos los días. Lanús es nuestra base operativa pero salimos a Avellaneda, Lomas de Zamora, Quilmes, Banfield, La Plata y CABA con la misma flota y equipo.",
+  },
+  {
+    q: "¿Trabajan los sábados en Lanús?",
+    a: "Sí. Operamos de lunes a sábado de 8 a 20. Para mudanzas urgentes podemos coordinar domingos según disponibilidad de equipo.",
+  },
+  {
+    q: "¿Qué pasa si el edificio en Lanús no tiene ascensor de servicio?",
+    a: "Lo evaluamos en la visita. Si hay que subir o bajar por escalera, ajustamos el equipo y el tiempo del operativo. Tenemos experiencia en edificios antiguos de Lanús sin ascensor o con ascensores muy chicos.",
+  },
+];
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: "Mudanzas en Lanús",
+  name: "Mudanzas en Lanús — Transporte Gioia e Hijos",
+  description,
+  provider: {
+    "@type": "MovingCompany",
+    name: site.name,
+    url: site.url,
+    telephone: site.phoneIntl,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: site.address.street,
+      addressLocality: site.address.city,
+      addressRegion: site.address.region,
+      addressCountry: "AR",
+      postalCode: site.address.postalCode,
+    },
+  },
+  areaServed: subzones.map((z) => ({ "@type": "Place", name: `${z.name}, Lanús` })),
+  url: new URL(path, site.url).toString(),
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Inicio", item: site.url },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Mudanzas en Lanús",
+      item: new URL(path, site.url).toString(),
+    },
+  ],
+};
+
+const waMsg = "Hola Transporte Gioia, quisiera cotizar una mudanza en Lanús.";
+---
+
+<Layout
+  title={title}
+  description={description}
+  keywords={keywords}
+  path={path}
+  image={camionFrontal}
+  extraSchema={[serviceSchema, faqSchema, breadcrumbSchema]}
+>
+  <section class="page-hero">
+    <div class="page-hero__media" aria-hidden="true">
+      <Image
+        src={camionFrontal}
+        alt=""
+        widths={[720, 1080, 1440]}
+        sizes="100vw"
+        formats={["avif", "webp"]}
+        quality={75}
+        loading="eager"
+        fetchpriority="high"
+      />
+      <div class="page-hero__overlay"></div>
+    </div>
+    <div class="container page-hero__inner">
+      <nav class="breadcrumbs" aria-label="Ruta de navegación">
+        <a href="/">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <span aria-current="page">Mudanzas en Lanús</span>
+      </nav>
+      <span class="eyebrow eyebrow--light">Servicio local</span>
+      <h1 class="page-hero__title">Mudanzas en Lanús con base local desde hace más de una década.</h1>
+      <p class="page-hero__lead">
+        Somos una empresa de mudanzas con sede en {site.address.street}, Lanús. Operamos en todos los
+        barrios del partido y conocemos cada calle, cada edificio antiguo sin ascensor y cada PH en
+        pasillo. Cotización sin cargo y presupuesto cerrado.
+      </p>
+      <div class="page-hero__ctas">
+        <a class="btn btn-primary" href={whatsappLink(waMsg)} target="_blank" rel="noopener">
+          Cotizar mi mudanza en Lanús
+        </a>
+        <a class="btn btn-ghost" href={`tel:${site.phoneIntl}`}>Llamar al {site.phoneDisplay}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section content-section--light">
+    <div class="container">
+      <header class="content-section__head">
+        <span class="eyebrow">Por qué somos locales</span>
+        <h2>Una empresa de mudanzas que vive y trabaja en Lanús.</h2>
+      </header>
+      <div class="content-section__copy">
+        <p>
+          Transporte Gioia e Hijos nació en Lanús y sigue acá. Eso significa que cuando cotizamos una
+          mudanza en el barrio sabemos exactamente con qué nos vamos a encontrar: ascensores chicos
+          en edificios viejos sobre Av. H. Yrigoyen, calles angostas en Gerli donde no entra
+          cualquier camión, restricciones horarias de carga y descarga en zona comercial. No
+          improvisamos: ya lo hicimos.
+        </p>
+        <p>
+          A diferencia de empresas que operan desde Capital o desde otras zonas del GBA, no perdés
+          tiempo esperando que el camión cruce media provincia para llegar a tu casa. Nuestra base
+          operativa está en {site.address.street}, a minutos de cualquier punto de Lanús. Eso se
+          traduce en respuesta rápida, costos más bajos en mudanzas locales y la posibilidad de
+          coordinar visitas el mismo día que nos consultás.
+        </p>
+        <p>
+          Trabajamos con personal propio, no con cuadrillas eventuales. Los chicos del equipo te
+          atienden la primera vez y son los mismos que aparecen el día de la mudanza. Camiones
+          mantenidos, materiales de embalaje profesionales y la responsabilidad de una empresa
+          familiar que está hace años en el rubro.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section content-section--dark">
+    <div class="container">
+      <header class="content-section__head">
+        <span class="eyebrow eyebrow--light">Cobertura barrial</span>
+        <h2>Zonas de Lanús donde operamos todos los días.</h2>
+        <p class="content-section__intro">
+          Cubrimos los seis barrios principales del partido y las zonas limítrofes. Si tu dirección
+          no aparece pero está en Lanús, igual vamos: consultanos por WhatsApp.
+        </p>
+      </header>
+      <ul class="zones-grid">
+        {subzones.map((z) => (
+          <li class="zone-card">
+            <h3 class="zone-card__title">{z.name}</h3>
+            <p class="zone-card__desc">{z.desc}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="content-section content-section--light">
+    <div class="container">
+      <header class="content-section__head">
+        <span class="eyebrow">Tipos de mudanzas</span>
+        <h2>Adaptamos el operativo al tipo de mudanza.</h2>
+      </header>
+      <div class="types-grid">
+        {tipos.map((t) => (
+          <article class="type-card">
+            <h3 class="type-card__title">{t.titulo}</h3>
+            <p class="type-card__desc">{t.desc}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section content-section--white">
+    <div class="container split">
+      <div class="split__media">
+        <Image
+          src={empleadosCajas}
+          alt="Equipo de Transporte Gioia embalando una mudanza residencial en Lanús"
+          widths={[480, 720, 960]}
+          sizes="(max-width: 880px) 92vw, 540px"
+          format="webp"
+          quality={80}
+          loading="lazy"
+        />
+      </div>
+      <div class="split__content">
+        <span class="eyebrow">Qué incluye</span>
+        <h2>Todo lo que entra en el servicio.</h2>
+        <p>
+          Sin extras escondidos ni costos sorpresa al final. Esto es lo que está contemplado cuando
+          cotizamos una mudanza en Lanús:
+        </p>
+        <ul class="check-list">
+          {incluye.map((item) => (
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path d="M5 12.5l4.5 4.5L19 7.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              {item}
+            </li>
+          ))}
+        </ul>
+        <a class="btn btn-primary" href={whatsappLink(waMsg)} target="_blank" rel="noopener">
+          Pedir cotización por WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section content-section--light">
+    <div class="container faq-block">
+      <header class="content-section__head">
+        <span class="eyebrow">Preguntas frecuentes</span>
+        <h2>Lo que más nos preguntan sobre mudanzas en Lanús.</h2>
+      </header>
+      <div class="faq-list">
+        {faqs.map((f, i) => (
+          <details class="faq-item" open={i === 0}>
+            <summary>
+              <span>{f.q}</span>
+              <span class="faq-plus" aria-hidden="true"></span>
+            </summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="page-cta">
+    <div class="container page-cta__inner">
+      <h2>¿Vivís en Lanús y necesitás mudarte?</h2>
+      <p>Te cotizamos hoy. Respondemos por WhatsApp en menos de una hora en horario laboral.</p>
+      <div class="page-cta__actions">
+        <a class="btn btn-whatsapp" href={whatsappLink(waMsg)} target="_blank" rel="noopener">
+          Escribinos por WhatsApp
+        </a>
+        <a class="btn btn-ghost" href={`tel:${site.phoneIntl}`}>Llamar al {site.phoneDisplay}</a>
+      </div>
+    </div>
+  </section>
+</Layout>

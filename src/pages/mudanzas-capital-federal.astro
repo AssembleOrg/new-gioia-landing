@@ -1,0 +1,311 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import { site, whatsappLink } from "../data/site";
+import camionFrontal from "../assets/images/camion-frontal.png";
+import empleadosCajas from "../assets/images/empleados-cajas.png";
+
+const title = `Mudanzas a Capital Federal (CABA) desde Lanús y GBA | ${site.shortName}`;
+const description =
+  "Mudanzas a Capital Federal y dentro de CABA. Conocemos los edificios porteños, manejamos restricciones horarias de carga y descarga, reservamos ascensor de servicio. Cotización gratis por WhatsApp.";
+const keywords =
+  "mudanzas Capital Federal, mudanzas CABA, mudanzas a Capital, mudanzas Buenos Aires, mudanzas Palermo, mudanzas Recoleta, mudanzas Caballito, mudanzas Belgrano";
+const path = "/mudanzas-capital-federal";
+
+const barrios = [
+  { name: "Palermo", desc: "Edificios modernos con encargado y reglas estrictas de ascensor de servicio. Reservamos turno." },
+  { name: "Recoleta", desc: "Edificios antiguos con ascensores chicos. Evaluamos accesos en visita previa." },
+  { name: "Caballito", desc: "Mudanzas de PHs y casas. Calles angostas que requieren camión adecuado." },
+  { name: "Belgrano", desc: "Departamentos grandes y edificios premium. Coordinación con administración." },
+  { name: "Villa Crespo y Almagro", desc: "Mudanzas frecuentes a y desde estas zonas residenciales en alza." },
+  { name: "Microcentro y San Telmo", desc: "Restricciones de tránsito y horarios reglamentados de carga/descarga." },
+];
+
+const tipos = [
+  {
+    titulo: "Mudanzas Lanús → CABA",
+    desc: "Salimos de la base en Lanús con tu mudanza completa. Una sola jornada, sin trasbordos ni pérdidas de tiempo.",
+  },
+  {
+    titulo: "Mudanzas dentro de CABA",
+    desc: "De un barrio porteño a otro. Coordinamos accesos, peajes, restricciones y horarios reglamentarios.",
+  },
+  {
+    titulo: "Mudanzas CABA → GBA",
+    desc: "Si te mudás de Capital al GBA o al sur del conurbano, lo hacemos en una jornada con equipo y camión completo.",
+  },
+  {
+    titulo: "Mudanzas de oficinas en CABA",
+    desc: "Operativos fuera de horario laboral. Embalaje y traslado de electrónica, archivo y mobiliario corporativo.",
+  },
+];
+
+const consideraciones = [
+  "Reserva del ascensor de servicio con la administración del edificio",
+  "Verificación de altura libre en accesos y cocheras subterráneas",
+  "Coordinación con encargados y porteros para horarios habilitados",
+  "Cumplimiento de restricciones de carga y descarga del GCBA",
+  "Camión adecuado al ancho de calles y maniobras urbanas",
+  "Embalaje reforzado para traslados con varios cambios de altura",
+];
+
+const faqs = [
+  {
+    q: "¿Cuánto tarda una mudanza desde Lanús a CABA?",
+    a: "Una mudanza Lanús → CABA se hace en una sola jornada (de 6 a 10 horas según volumen y barrio de destino). Salimos temprano de la base, cargamos en origen, viajamos y descargamos en el día. El tiempo extra suele ser por reservas de ascensor o restricciones horarias en el edificio de destino.",
+  },
+  {
+    q: "¿Hacen mudanzas dentro de Capital Federal sin pasar por GBA?",
+    a: "Sí. Aunque nuestra base está en Lanús, operamos mudanzas internas de CABA con la misma flota. El camión llega al barrio de origen, carga, traslada y descarga en el barrio de destino sin volver a la base.",
+  },
+  {
+    q: "¿Qué pasa con las restricciones de horario en CABA?",
+    a: "Las conocemos y trabajamos con ellas. En zonas como Microcentro, San Telmo o calles peatonalizadas hay franjas horarias reglamentadas para carga y descarga. Coordinamos el operativo dentro de esos horarios y, si hace falta, partimos antes para llegar a tiempo.",
+  },
+  {
+    q: "¿Reservan el ascensor de servicio?",
+    a: "Te ayudamos a coordinarlo, pero la reserva la tiene que pedir el inquilino o propietario a la administración del edificio (es un trámite del consorcio). Te indicamos con anticipación qué pedir y para qué franja horaria reservarlo.",
+  },
+  {
+    q: "¿Trabajan con edificios premium o con encargado estricto?",
+    a: "Sí, todos los días. Cumplimos con los protocolos del edificio: protección de pisos, ascensores con mantas, salida por servicio, tiempos pactados. Tenemos años de experiencia con consorcios exigentes en Palermo, Recoleta y Belgrano.",
+  },
+];
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: "Mudanzas a Capital Federal",
+  name: "Mudanzas a CABA — Transporte Gioia e Hijos",
+  description,
+  provider: {
+    "@type": "MovingCompany",
+    name: site.name,
+    url: site.url,
+    telephone: site.phoneIntl,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: site.address.street,
+      addressLocality: site.address.city,
+      addressRegion: site.address.region,
+      addressCountry: "AR",
+      postalCode: site.address.postalCode,
+    },
+  },
+  areaServed: [
+    { "@type": "City", name: "Ciudad Autónoma de Buenos Aires" },
+    ...barrios.map((b) => ({ "@type": "Place", name: `${b.name}, CABA` })),
+  ],
+  url: new URL(path, site.url).toString(),
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Inicio", item: site.url },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Mudanzas a Capital Federal",
+      item: new URL(path, site.url).toString(),
+    },
+  ],
+};
+
+const waMsg = "Hola Transporte Gioia, quisiera cotizar una mudanza a Capital Federal.";
+---
+
+<Layout
+  title={title}
+  description={description}
+  keywords={keywords}
+  path={path}
+  image={camionFrontal}
+  extraSchema={[serviceSchema, faqSchema, breadcrumbSchema]}
+>
+  <section class="page-hero">
+    <div class="page-hero__media" aria-hidden="true">
+      <Image
+        src={camionFrontal}
+        alt=""
+        widths={[720, 1080, 1440]}
+        sizes="100vw"
+        formats={["avif", "webp"]}
+        quality={75}
+        loading="eager"
+        fetchpriority="high"
+      />
+      <div class="page-hero__overlay"></div>
+    </div>
+    <div class="container page-hero__inner">
+      <nav class="breadcrumbs" aria-label="Ruta de navegación">
+        <a href="/">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <span aria-current="page">Mudanzas a Capital Federal</span>
+      </nav>
+      <span class="eyebrow eyebrow--light">Servicios CABA</span>
+      <h1 class="page-hero__title">Mudanzas a Capital Federal y dentro de CABA, sin sorpresas.</h1>
+      <p class="page-hero__lead">
+        Operamos en todos los barrios porteños desde nuestra base en Lanús. Conocemos los edificios,
+        manejamos las restricciones de tránsito y carga, y coordinamos con encargados para que tu
+        mudanza salga en tiempo y forma.
+      </p>
+      <div class="page-hero__ctas">
+        <a class="btn btn-primary" href={whatsappLink(waMsg)} target="_blank" rel="noopener">
+          Cotizar mudanza a CABA
+        </a>
+        <a class="btn btn-ghost" href={`tel:${site.phoneIntl}`}>Llamar al {site.phoneDisplay}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section content-section--light">
+    <div class="container">
+      <header class="content-section__head">
+        <span class="eyebrow">Capital Federal</span>
+        <h2>Una mudanza en CABA no es solo cargar y descargar.</h2>
+      </header>
+      <div class="content-section__copy">
+        <p>
+          Mudarse a un departamento en Capital Federal tiene una capa de complejidad que no aparece
+          en una mudanza local del GBA. Los edificios porteños tienen reglamentos de copropiedad
+          específicos: hay que reservar el ascensor de servicio con anticipación, cubrir el
+          ascensor con mantas, proteger los pisos del palier, salir por la puerta de servicio. Si
+          alguno de estos protocolos no se cumple, el encargado tiene la potestad de frenar la
+          mudanza.
+        </p>
+        <p>
+          A eso se suma el tránsito: hay zonas con restricciones de carga y descarga reguladas por
+          el GCBA, calles donde un camión grande no entra, cocheras subterráneas con altura libre
+          limitada que obliga a estacionar afuera y subir todo a mano. Lo que parece "una jornada
+          de mudanza" puede convertirse en dos si no se planificó bien.
+        </p>
+        <p>
+          Trabajamos en CABA hace más de una década. Conocemos los edificios premium de Palermo y
+          Belgrano, los caserones reciclados de Caballito, los PHs de Villa Crespo, los
+          rascacielos del Microcentro. Antes de cotizar te preguntamos por el edificio, el piso,
+          el ascensor y el barrio de destino — porque cada uno tiene sus reglas.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section content-section--dark">
+    <div class="container">
+      <header class="content-section__head">
+        <span class="eyebrow eyebrow--light">Barrios donde operamos</span>
+        <h2>Cobertura completa de CABA.</h2>
+        <p class="content-section__intro">
+          Estos son los barrios donde más mudanzas hacemos, pero llegamos a toda la ciudad.
+          Si tu destino no aparece, consultanos.
+        </p>
+      </header>
+      <ul class="zones-grid">
+        {barrios.map((b) => (
+          <li class="zone-card">
+            <h3 class="zone-card__title">{b.name}</h3>
+            <p class="zone-card__desc">{b.desc}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="content-section content-section--light">
+    <div class="container">
+      <header class="content-section__head">
+        <span class="eyebrow">Tipos de operativo</span>
+        <h2>Hacemos cuatro tipos de mudanzas a CABA.</h2>
+      </header>
+      <div class="types-grid">
+        {tipos.map((t) => (
+          <article class="type-card">
+            <h3 class="type-card__title">{t.titulo}</h3>
+            <p class="type-card__desc">{t.desc}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section content-section--white">
+    <div class="container split">
+      <div class="split__media">
+        <Image
+          src={empleadosCajas}
+          alt="Equipo de Transporte Gioia preparando una mudanza con destino Capital Federal"
+          widths={[480, 720, 960]}
+          sizes="(max-width: 880px) 92vw, 540px"
+          format="webp"
+          quality={80}
+          loading="lazy"
+        />
+      </div>
+      <div class="split__content">
+        <span class="eyebrow">Lo que tenemos en cuenta</span>
+        <h2>Logística específica de CABA.</h2>
+        <p>
+          Cada mudanza a Capital tiene puntos de control que cotizamos antes de salir, no a último
+          momento:
+        </p>
+        <ul class="check-list">
+          {consideraciones.map((item) => (
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path d="M5 12.5l4.5 4.5L19 7.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              {item}
+            </li>
+          ))}
+        </ul>
+        <a class="btn btn-primary" href={whatsappLink(waMsg)} target="_blank" rel="noopener">
+          Pedir cotización para CABA
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section content-section--light">
+    <div class="container faq-block">
+      <header class="content-section__head">
+        <span class="eyebrow">Preguntas frecuentes</span>
+        <h2>Lo que más nos preguntan sobre mudanzas a CABA.</h2>
+      </header>
+      <div class="faq-list">
+        {faqs.map((f, i) => (
+          <details class="faq-item" open={i === 0}>
+            <summary>
+              <span>{f.q}</span>
+              <span class="faq-plus" aria-hidden="true"></span>
+            </summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="page-cta">
+    <div class="container page-cta__inner">
+      <h2>¿Te mudás a Capital Federal?</h2>
+      <p>Contanos desde dónde y a dónde vas. Te cotizamos rápido y sin letra chica.</p>
+      <div class="page-cta__actions">
+        <a class="btn btn-whatsapp" href={whatsappLink(waMsg)} target="_blank" rel="noopener">
+          Escribinos por WhatsApp
+        </a>
+        <a class="btn btn-ghost" href={`tel:${site.phoneIntl}`}>Llamar al {site.phoneDisplay}</a>
+      </div>
+    </div>
+  </section>
+</Layout>

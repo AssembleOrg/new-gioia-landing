@@ -14,6 +14,8 @@ interface Props {
   description?: string;
   path?: string;
   image?: ImageMetadata;
+  keywords?: string;
+  extraSchema?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 const {
@@ -21,6 +23,8 @@ const {
   description = "Mudanzas residenciales y comerciales, traslados entre provincias y servicio de guardamuebles seguro en Lanús, GBA y CABA. Cotización gratis por WhatsApp.",
   path = "/",
   image = camionFrontal,
+  keywords = "mudanzas Lanús, mudanzas Buenos Aires, transporte Gioia, guardamuebles Lanús, mudanzas residenciales, mudanzas comerciales, mudanzas entre provincias, fletes Lanús, depósito de muebles",
+  extraSchema,
 } = Astro.props;
 
 const ogOptimized = await getImage({
@@ -122,10 +126,7 @@ const jsonLd = {
 
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta
-      name="keywords"
-      content="mudanzas Lanús, mudanzas Buenos Aires, transporte Gioia, guardamuebles Lanús, mudanzas residenciales, mudanzas comerciales, mudanzas entre provincias, fletes Lanús, depósito de muebles"
-    />
+    <meta name="keywords" content={keywords} />
     <meta name="author" content={site.name} />
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta name="theme-color" content="#7a1f2c" />
@@ -167,6 +168,11 @@ const jsonLd = {
     <meta name="twitter:image" content={ogImage} />
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    {extraSchema && (
+      Array.isArray(extraSchema)
+        ? extraSchema.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)
+        : <script type="application/ld+json" set:html={JSON.stringify(extraSchema)} />
+    )}
   </head>
   <body>
     <a href="#contenido" class="skip-link">Saltar al contenido</a>
