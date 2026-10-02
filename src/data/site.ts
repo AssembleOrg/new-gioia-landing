@@ -3,6 +3,8 @@ export const site = {
   shortName: "Transporte Gioia",
   tagline: "Mudanzas y guardamuebles con profesionalismo, puntualidad y seguridad.",
   url: "https://transportegioiaehijos.com.ar",
+  // Seguimiento de envíos (sistema de expreso, con estados y QR).
+  trackingUrl: "https://transportegioia.com.ar/#tracking-section",
   logoPath: "/tg2.avif",
   phoneDisplay: "11 5499-8345",
   phoneIntl: "+5491154998345",

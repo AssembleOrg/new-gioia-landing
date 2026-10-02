@@ -7,6 +7,7 @@ const navLinks = [
   { href: "/guardamuebles-lanus", label: "Guardamuebles" },
   { href: "/#cobertura", label: "Cobertura" },
   { href: "/#faq", label: "Preguntas" },
+  { href: site.trackingUrl, label: "Seguí tu envío" },
 ];
 ---
 
@@ -108,7 +109,7 @@ const navLinks = [
 
   .nav {
     display: flex;
-    gap: 28px;
+    gap: clamp(16px, 1.8vw, 28px);
     margin-left: auto;
     margin-right: 8px;
   }
@@ -120,6 +121,7 @@ const navLinks = [
     transition: color 0.15s ease;
     position: relative;
     padding: 6px 0;
+    white-space: nowrap;
     text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
   }
 
@@ -312,7 +314,8 @@ const navLinks = [
     letter-spacing: 0.04em;
   }
 
-  @media (max-width: 920px) {
+  /* Con seis enlaces el menú entra cómodo recién desde ~1180px. */
+  @media (max-width: 1180px) {
     .nav,
     .header__cta {
       display: none;
